@@ -1,0 +1,857 @@
+/* LCARS family: startrektng, lcars, startrek
+   Ground truth: TNG holodeck programming panel. Flat mosaic, stadium caps, no 3D. */
+
+html[data-style="startrektng"],
+html[data-style="lcars"],
+html[data-style="startrek"] {
+  --bg: #000000;
+  --bg-alt: #000000;
+  --card: #000000;
+  --text: #ffcc66;
+  --muted: #cc8844;
+  --accent: #ff9900;
+  --accent-2: #cc99ff;
+  --accent-3: #ffcc66;
+  --accent-4: #7788ff;
+  --accent-5: #cc66ff;
+  --accent-6: #cc6600;
+  --border: #ff9900;
+  --header-bg: #ff9900;
+  --header-hover: #ffcc66;
+  --success: #88cc44;
+  --danger: #ff6666;
+  --warning-bg: #000000;
+  --warning-border: #ff9900;
+  --chip-bg: #ff9900;
+  --chip-text: #000000;
+  --shadow: none;
+  --radius: 0;
+  --radius-sm: 0;
+  --font: "Antonio", "Oswald", "Arial Narrow", "Helvetica Neue Condensed", "Helvetica Neue", sans-serif;
+  --link: #ffcc66;
+  --btn-shadow: none;
+  --table-header: #ff9900;
+  --table-even: #000000;
+  --table-hover: #1a0f00;
+  --resizer: #cc6600;
+  --modal-bg: #000000;
+  --scrollbar-size: 18px;
+  --scrollbar-track: #000000;
+  --scrollbar-track-bg: #000000;
+  --scrollbar-thumb: #ff9900;
+  --scrollbar-thumb-bg: #ff9900;
+  --scrollbar-thumb-hover: #ffcc66;
+  --scrollbar-thumb-hover-bg: #ffcc66;
+  --scrollbar-thumb-active: #cc99ff;
+  --scrollbar-thumb-active-bg: #cc99ff;
+  --scrollbar-border: #000000;
+  --scrollbar-radius: 9px;
+  --scrollbar-corner: #000000;
+  --scrollbar-button-bg: #cc6600;
+  --scrollbar-button-hover-bg: #ff9900;
+  --scrollbar-button-active-bg: #cc99ff;
+}
+
+html[data-style="lcars"] {
+  --accent: #ff9900;
+  --accent-2: #9999ff;
+  --accent-5: #cc99ff;
+}
+html[data-style="startrek"] {
+  --accent: #ff9900;
+  --accent-2: #7788ff;
+  --accent-5: #cc66ff;
+}
+
+html[data-mode="dark"][data-style="startrektng"],
+html[data-mode="dark"][data-style="lcars"],
+html[data-mode="dark"][data-style="startrek"],
+html[data-mode="light"][data-style="startrektng"],
+html[data-mode="light"][data-style="lcars"],
+html[data-mode="light"][data-style="startrek"],
+html[data-mode="system"][data-style="startrektng"],
+html[data-mode="system"][data-style="lcars"],
+html[data-mode="system"][data-style="startrek"] {
+  --bg: #000000;
+  --bg-alt: #000000;
+  --card: #000000;
+  --text: #ffcc66;
+  --muted: #cc8844;
+  --modal-bg: #000000;
+}
+
+html[data-style="startrektng"] body,
+html[data-style="lcars"] body,
+html[data-style="startrek"] body {
+  background: #000;
+  color: #ffcc66;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+}
+
+html[data-style="startrektng"] body::before,
+html[data-style="lcars"] body::before,
+html[data-style="startrek"] body::before {
+  background:
+    linear-gradient(180deg, transparent 0, transparent 3px, rgba(255, 153, 0, 0.03) 4px),
+    radial-gradient(ellipse at 8% 0%, rgba(255, 153, 0, 0.08), transparent 42%);
+  background-size: 100% 4px, 100% 100%;
+  opacity: 0.9;
+}
+
+html[data-style="startrektng"] .app,
+html[data-style="lcars"] .app,
+html[data-style="startrek"] .app {
+  background: #000;
+  gap: 0;
+  padding: 10px 10px 10px 0;
+}
+
+/* Left rail: stacked end-capped color blocks, not a white card column */
+html[data-style="startrektng"] .sidebar,
+html[data-style="lcars"] .sidebar,
+html[data-style="startrek"] .sidebar {
+  background: #000;
+  border-right: 0;
+  padding: 0 10px 8px 0;
+  gap: 5px;
+  overflow: hidden;
+}
+html[data-style="startrektng"] .sidebar::before,
+html[data-style="lcars"] .sidebar::before,
+html[data-style="startrek"] .sidebar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 72px;
+  background: #ff9900;
+  border-radius: 0 0 0 22px;
+  pointer-events: none;
+}
+html[data-style="startrektng"] .sidebar::after,
+html[data-style="lcars"] .sidebar::after,
+html[data-style="startrek"] .sidebar::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 18px;
+  height: 48px;
+  background: #cc6600;
+  border-radius: 22px 0 0 0;
+  pointer-events: none;
+}
+
+html[data-style="startrektng"] .sidebar-resizer,
+html[data-style="lcars"] .sidebar-resizer,
+html[data-style="startrek"] .sidebar-resizer {
+  background: #cc6600;
+  width: 6px;
+  right: 0;
+  border-radius: 3px 0 0 3px;
+  opacity: 0.85;
+}
+
+html[data-style="startrektng"] .logo,
+html[data-style="lcars"] .logo,
+html[data-style="startrek"] .logo {
+  background: #ff9900;
+  color: #000;
+  border-radius: 0 2.2em 2.2em 0;
+  padding: 10px 16px 10px 28px;
+  margin: 0 0 4px;
+  min-height: 64px;
+  gap: 10px;
+}
+html[data-style="startrektng"] .logo h1,
+html[data-style="lcars"] .logo h1,
+html[data-style="startrek"] .logo h1 {
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  font-size: calc(1.05rem * var(--font-scale));
+}
+html[data-style="startrektng"] .logo span,
+html[data-style="lcars"] .logo span,
+html[data-style="startrek"] .logo span {
+  color: #1a0a00;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 600;
+}
+html[data-style="startrektng"] .logo-mark,
+html[data-style="lcars"] .logo-mark,
+html[data-style="startrek"] .logo-mark {
+  width: 42px;
+  height: 28px;
+  border-radius: 0 14px 14px 0;
+  background: #000;
+  color: #ffcc66;
+  font-family: "Antonio", "Oswald", sans-serif;
+  letter-spacing: 0.04em;
+  font-size: 0.95rem;
+}
+
+html[data-style="startrektng"] .sidebar-collapse-btn,
+html[data-style="lcars"] .sidebar-collapse-btn,
+html[data-style="startrek"] .sidebar-collapse-btn {
+  background: #000;
+  color: #ffcc66;
+  border: 0;
+  border-radius: 1em 0.2em 0.2em 1em;
+  top: 18px;
+  right: 18px;
+  width: 26px;
+  height: 22px;
+  font-size: 0.7rem;
+}
+
+html[data-style="startrektng"] .sidebar-section-title,
+html[data-style="lcars"] .sidebar-section-title,
+html[data-style="startrek"] .sidebar-section-title {
+  background: #cc6600;
+  color: #000;
+  border-radius: 0 1.1em 1.1em 0;
+  padding: 6px 14px 6px 28px;
+  margin: 8px 0 2px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: calc(0.68rem * var(--font-scale));
+}
+
+html[data-style="startrektng"] .btn,
+html[data-style="lcars"] .btn,
+html[data-style="startrek"] .btn {
+  background: #ff9900;
+  color: #000;
+  border: 0;
+  border-radius: 1.3em 0.22em 0.22em 1.3em;
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  padding: calc(8px * var(--density)) calc(14px * var(--density));
+  transition: filter 120ms linear, opacity 120ms linear;
+}
+html[data-style="startrektng"] .btn:hover,
+html[data-style="lcars"] .btn:hover,
+html[data-style="startrek"] .btn:hover {
+  filter: brightness(1.12);
+  transform: none;
+}
+html[data-style="startrektng"] .btn:active,
+html[data-style="lcars"] .btn:active,
+html[data-style="startrek"] .btn:active {
+  filter: brightness(0.88);
+  transform: none;
+}
+html[data-style="startrektng"] .btn-primary,
+html[data-style="lcars"] .btn-primary,
+html[data-style="startrek"] .btn-primary {
+  background: #ff9900;
+  color: #000;
+}
+html[data-style="startrektng"] .btn-accent,
+html[data-style="lcars"] .btn-accent,
+html[data-style="startrek"] .btn-accent {
+  background: #cc99ff;
+  color: #000;
+  border-radius: 0.22em 1.3em 1.3em 0.22em;
+}
+html[data-style="startrektng"] .btn-danger,
+html[data-style="lcars"] .btn-danger,
+html[data-style="startrek"] .btn-danger {
+  background: #ff6666;
+  color: #000;
+}
+html[data-style="startrektng"] .btn-ghost,
+html[data-style="lcars"] .btn-ghost,
+html[data-style="startrek"] .btn-ghost {
+  background: #7788ff;
+  color: #000;
+  border: 0;
+}
+html[data-style="startrektng"] .btn-info,
+html[data-style="lcars"] .btn-info,
+html[data-style="startrek"] .btn-info {
+  background: #9999ff;
+  color: #000;
+  border-radius: 1.2em 0.3em 1.2em 0.3em;
+  width: 36px;
+  height: 28px;
+}
+
+html[data-style="startrektng"] .file-label,
+html[data-style="lcars"] .file-label,
+html[data-style="startrek"] .file-label {
+  background: #ffcc66;
+  color: #000;
+  border-radius: 0 1.4em 1.4em 0;
+  margin-left: 0;
+}
+
+html[data-style="startrektng"] .tag-chip,
+html[data-style="lcars"] .tag-chip,
+html[data-style="startrek"] .tag-chip {
+  background: #cc6600;
+  color: #000;
+  border: 0;
+  border-radius: 1em 0.15em 0.15em 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+html[data-style="startrektng"] .tag-chip.active,
+html[data-style="lcars"] .tag-chip.active,
+html[data-style="startrek"] .tag-chip.active {
+  background: #cc99ff;
+  color: #000;
+}
+html[data-style="startrektng"] .tag-chip.all,
+html[data-style="lcars"] .tag-chip.all,
+html[data-style="startrek"] .tag-chip.all {
+  background: #7788ff;
+  color: #000;
+}
+
+html[data-style="startrektng"] .dataset-card,
+html[data-style="lcars"] .dataset-card,
+html[data-style="startrek"] .dataset-card {
+  background: #ff9900;
+  color: #000;
+  border: 0;
+  border-radius: 0 1.5em 1.5em 0;
+  box-shadow: none;
+  padding: 10px 16px 10px 28px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+html[data-style="startrektng"] .dataset-card:nth-child(2),
+html[data-style="lcars"] .dataset-card:nth-child(2),
+html[data-style="startrek"] .dataset-card:nth-child(2) {
+  background: #cc99ff;
+}
+html[data-style="startrektng"] .dataset-card:nth-child(3),
+html[data-style="lcars"] .dataset-card:nth-child(3),
+html[data-style="startrek"] .dataset-card:nth-child(3) {
+  background: #9999ff;
+}
+html[data-style="startrektng"] .dataset-card:nth-child(4),
+html[data-style="lcars"] .dataset-card:nth-child(4),
+html[data-style="startrek"] .dataset-card:nth-child(4) {
+  background: #ffcc66;
+}
+html[data-style="startrektng"] .dataset-card:nth-child(5),
+html[data-style="lcars"] .dataset-card:nth-child(5),
+html[data-style="startrek"] .dataset-card:nth-child(5) {
+  background: #7788ff;
+}
+html[data-style="startrektng"] .dataset-card .name,
+html[data-style="lcars"] .dataset-card .name,
+html[data-style="startrek"] .dataset-card .name {
+  color: #000;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+html[data-style="startrektng"] .dataset-card .meta,
+html[data-style="lcars"] .dataset-card .meta,
+html[data-style="startrek"] .dataset-card .meta {
+  color: #1a0a00;
+  letter-spacing: 0.1em;
+  font-size: 0.68rem;
+}
+html[data-style="startrektng"] .dataset-card .tag,
+html[data-style="lcars"] .dataset-card .tag,
+html[data-style="startrek"] .dataset-card .tag {
+  background: #000;
+  color: #ffcc66;
+  border: 0;
+  border-radius: 0.8em 0.15em 0.15em 0.8em;
+}
+html[data-style="startrektng"] .dataset-card.active,
+html[data-style="lcars"] .dataset-card.active,
+html[data-style="startrek"] .dataset-card.active {
+  box-shadow: inset 8px 0 0 #000;
+  filter: brightness(1.08);
+}
+
+html[data-style="startrektng"] .url-load input,
+html[data-style="lcars"] .url-load input,
+html[data-style="startrek"] .url-load input,
+html[data-style="startrektng"] .search-input,
+html[data-style="lcars"] .search-input,
+html[data-style="startrek"] .search-input,
+html[data-style="startrektng"] .title-controls select,
+html[data-style="lcars"] .title-controls select,
+html[data-style="startrek"] .title-controls select,
+html[data-style="startrektng"] .modal input,
+html[data-style="lcars"] .modal input,
+html[data-style="startrek"] .modal input,
+html[data-style="startrektng"] .modal textarea,
+html[data-style="lcars"] .modal textarea,
+html[data-style="startrek"] .modal textarea,
+html[data-style="startrektng"] .modal select,
+html[data-style="lcars"] .modal select,
+html[data-style="startrek"] .modal select {
+  background: #000;
+  color: #ffcc66;
+  border: 0;
+  border-bottom: 3px solid #ff9900;
+  border-radius: 0;
+  box-shadow: none;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+html[data-style="startrektng"] .title-pane,
+html[data-style="lcars"] .title-pane,
+html[data-style="startrek"] .title-pane {
+  background: #000;
+  padding: 0 12px 10px 0;
+  position: relative;
+}
+html[data-style="startrektng"] .title-pane::before,
+html[data-style="lcars"] .title-pane::before,
+html[data-style="startrek"] .title-pane::before {
+  content: "LCARS";
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: #ff9900;
+  color: #000;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  height: 28px;
+  padding: 0 18px;
+  border-radius: 0 1.4em 0 0;
+  margin: 0 0 10px;
+  font-size: 0.72rem;
+}
+html[data-style="startrektng"] .page-header h2,
+html[data-style="lcars"] .page-header h2,
+html[data-style="startrek"] .page-header h2 {
+  color: #ffcc66;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+html[data-style="startrektng"] .short-desc,
+html[data-style="lcars"] .short-desc,
+html[data-style="startrek"] .short-desc {
+  color: #cc8844;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.78rem;
+}
+
+html[data-style="startrektng"] .disclaimer,
+html[data-style="lcars"] .disclaimer,
+html[data-style="startrek"] .disclaimer {
+  background: #000;
+  border: 0;
+  border-left: 14px solid #cc6600;
+  border-radius: 0 0 0 1.2em;
+  color: #ffcc66;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 12px 8px 16px;
+}
+
+html[data-style="startrektng"] .map-pane,
+html[data-style="lcars"] .map-pane,
+html[data-style="startrek"] .map-pane {
+  background: #000;
+  border-radius: 0 1.6em 0 0;
+  overflow: hidden;
+  position: relative;
+}
+html[data-style="startrektng"] .map-pane::before,
+html[data-style="lcars"] .map-pane::before,
+html[data-style="startrek"] .map-pane::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 48px;
+  height: 16px;
+  background: #ff9900;
+  border-radius: 0 0 0 0;
+  z-index: 1;
+}
+html[data-style="startrektng"] .map-pane::after,
+html[data-style="lcars"] .map-pane::after,
+html[data-style="startrek"] .map-pane::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 48px;
+  height: 16px;
+  background: #cc99ff;
+  border-radius: 0 1.4em 0 0;
+  z-index: 1;
+}
+html[data-style="startrektng"] .schematic-map,
+html[data-style="lcars"] .schematic-map,
+html[data-style="startrek"] .schematic-map {
+  background:
+    linear-gradient(rgba(255, 153, 0, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 153, 0, 0.12) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-color: #000;
+  padding-top: 16px;
+}
+html[data-style="startrektng"] .map-label,
+html[data-style="lcars"] .map-label,
+html[data-style="startrek"] .map-label {
+  color: #ff9900;
+  top: 22px;
+  letter-spacing: 0.16em;
+}
+html[data-style="startrektng"] .map-pin,
+html[data-style="lcars"] .map-pin,
+html[data-style="startrek"] .map-pin {
+  width: 28px;
+  height: 18px;
+  border-radius: 0.9em 0.2em 0.9em 0.2em;
+  background: #ff9900;
+  color: #000;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+}
+html[data-style="startrektng"] .map-pin:nth-child(odd),
+html[data-style="lcars"] .map-pin:nth-child(odd),
+html[data-style="startrek"] .map-pin:nth-child(odd) {
+  background: #cc99ff;
+}
+html[data-style="startrektng"] .map-pin.active,
+html[data-style="lcars"] .map-pin.active,
+html[data-style="startrek"] .map-pin.active {
+  background: #ffcc66;
+  outline: 0;
+  filter: brightness(1.15);
+}
+
+html[data-style="startrektng"] .h-resizer,
+html[data-style="lcars"] .h-resizer,
+html[data-style="startrek"] .h-resizer,
+html[data-style="startrektng"] .v-resizer,
+html[data-style="lcars"] .v-resizer,
+html[data-style="startrek"] .v-resizer {
+  background: #cc6600;
+  border-radius: 8px;
+}
+
+html[data-style="startrektng"] .table-area,
+html[data-style="lcars"] .table-area,
+html[data-style="startrek"] .table-area {
+  background: #000;
+  padding: 4px 8px 8px;
+}
+html[data-style="startrektng"] .toolbar,
+html[data-style="lcars"] .toolbar,
+html[data-style="startrek"] .toolbar {
+  gap: 8px;
+}
+html[data-style="startrektng"] .search-input,
+html[data-style="lcars"] .search-input,
+html[data-style="startrek"] .search-input,
+html[data-style="startrektng"] #search,
+html[data-style="lcars"] #search,
+html[data-style="startrek"] #search {
+  border-radius: 0;
+  border: 0;
+  border-bottom: 3px solid #ff9900;
+  background: #000;
+  color: #ffcc66;
+  box-shadow: none;
+  text-transform: uppercase;
+}
+
+html[data-style="startrektng"] .table-scroll,
+html[data-style="lcars"] .table-scroll,
+html[data-style="startrek"] .table-scroll {
+  background: #000;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  outline: 0;
+}
+html[data-style="startrektng"] table,
+html[data-style="lcars"] table,
+html[data-style="startrek"] table {
+  border-collapse: collapse;
+}
+html[data-style="startrektng"] th,
+html[data-style="lcars"] th,
+html[data-style="startrek"] th {
+  background: #ff9900;
+  color: #000;
+  border-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  font-size: calc(0.72rem * var(--font-scale));
+}
+html[data-style="startrektng"] th:first-child,
+html[data-style="lcars"] th:first-child,
+html[data-style="startrek"] th:first-child {
+  border-radius: 0;
+}
+html[data-style="startrektng"] th:last-child,
+html[data-style="lcars"] th:last-child,
+html[data-style="startrek"] th:last-child {
+  border-radius: 0 1.1em 0 0;
+}
+html[data-style="startrektng"] td,
+html[data-style="lcars"] td,
+html[data-style="startrek"] td {
+  background: #000;
+  color: #ffcc66;
+  border-bottom: 1px solid #3a2200;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: calc(0.78rem * var(--font-scale));
+}
+html[data-style="startrektng"] tr:nth-child(even) td,
+html[data-style="lcars"] tr:nth-child(even) td,
+html[data-style="startrek"] tr:nth-child(even) td {
+  background: #000;
+}
+html[data-style="startrektng"] tr:hover td,
+html[data-style="lcars"] tr:hover td,
+html[data-style="startrek"] tr:hover td {
+  background: #1a0f00;
+}
+html[data-style="startrektng"] tr.highlight-row td,
+html[data-style="lcars"] tr.highlight-row td,
+html[data-style="startrek"] tr.highlight-row td {
+  background: #2a1800;
+  outline: 0;
+  box-shadow: inset 6px 0 0 #ff9900;
+}
+html[data-style="startrektng"] a,
+html[data-style="lcars"] a,
+html[data-style="startrek"] a {
+  color: #ffcc66;
+  text-decoration: none;
+  border-bottom: 1px solid #cc6600;
+}
+
+html[data-style="startrektng"] .photo-ph,
+html[data-style="lcars"] .photo-ph,
+html[data-style="startrek"] .photo-ph {
+  border-radius: 0.8em 0.15em 0.8em 0.15em;
+  background: #7788ff;
+  color: #000;
+}
+
+html[data-style="startrektng"] .settings-panel,
+html[data-style="lcars"] .settings-panel,
+html[data-style="startrek"] .settings-panel {
+  background: #000;
+  border: 0;
+  border-left: 14px solid #9999ff;
+  border-radius: 0;
+  color: #ffcc66;
+  text-transform: uppercase;
+}
+
+html[data-style="startrektng"] .modal-backdrop,
+html[data-style="lcars"] .modal-backdrop,
+html[data-style="startrek"] .modal-backdrop {
+  background: rgba(0, 0, 0, 0.78);
+}
+html[data-style="startrektng"] .modal,
+html[data-style="lcars"] .modal,
+html[data-style="startrek"] .modal {
+  background: #000;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0 18px 16px;
+  position: relative;
+}
+html[data-style="startrektng"] .modal::before,
+html[data-style="lcars"] .modal::before,
+html[data-style="startrek"] .modal::before {
+  content: "";
+  display: block;
+  height: 28px;
+  margin: 0 -18px 14px;
+  background: #ff9900;
+  border-radius: 1.4em 1.4em 0 0;
+}
+html[data-style="startrektng"] .modal::after,
+html[data-style="lcars"] .modal::after,
+html[data-style="startrek"] .modal::after {
+  content: "";
+  display: block;
+  height: 16px;
+  margin: 16px -18px -16px;
+  background: #cc6600;
+  border-radius: 0 0 1.4em 1.4em;
+}
+html[data-style="startrektng"] .modal h3,
+html[data-style="lcars"] .modal h3,
+html[data-style="startrek"] .modal h3 {
+  color: #ffcc66;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: -6px;
+}
+html[data-style="startrektng"] .tab-btn,
+html[data-style="lcars"] .tab-btn,
+html[data-style="startrek"] .tab-btn {
+  background: #cc6600;
+  color: #000;
+  border-radius: 1em 0.2em 0 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 6px 16px;
+}
+html[data-style="startrektng"] .tab-btn.active,
+html[data-style="lcars"] .tab-btn.active,
+html[data-style="startrek"] .tab-btn.active {
+  background: #ff9900;
+  color: #000;
+}
+html[data-style="startrektng"] .tab-bar,
+html[data-style="lcars"] .tab-bar,
+html[data-style="startrek"] .tab-bar {
+  border-bottom: 8px solid #ff9900;
+}
+
+html[data-style="startrektng"] ul,
+html[data-style="lcars"] ul,
+html[data-style="startrek"] ul {
+  list-style: none;
+  padding-left: 0;
+}
+html[data-style="startrektng"] li,
+html[data-style="lcars"] li,
+html[data-style="startrek"] li {
+  padding: 3px 0 3px 12px;
+  border-left: 8px solid #ff9900;
+  margin: 4px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+html[data-style="startrektng"] ol,
+html[data-style="lcars"] ol,
+html[data-style="startrek"] ol {
+  list-style: none;
+  counter-reset: lcars;
+  padding-left: 0;
+}
+html[data-style="startrektng"] ol > li,
+html[data-style="lcars"] ol > li,
+html[data-style="startrek"] ol > li {
+  counter-increment: lcars;
+}
+html[data-style="startrektng"] ol > li::before,
+html[data-style="lcars"] ol > li::before,
+html[data-style="startrek"] ol > li::before {
+  content: counter(lcars, decimal-leading-zero) "  ";
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+html[data-style="startrektng"] :focus-visible,
+html[data-style="lcars"] :focus-visible,
+html[data-style="startrek"] :focus-visible {
+  outline: 2px solid #ffcc66;
+  outline-offset: 2px;
+}
+
+html[data-style="startrektng"] .status-bar,
+html[data-style="lcars"] .status-bar,
+html[data-style="startrek"] .status-bar {
+  background: #cc6600;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 6px 14px;
+  border-radius: 0 0 1.2em 0;
+  font-weight: 700;
+}
+
+html[data-style="startrektng"] input[type="checkbox"],
+html[data-style="lcars"] input[type="checkbox"],
+html[data-style="startrek"] input[type="checkbox"],
+html[data-style="startrektng"] input[type="radio"],
+html[data-style="lcars"] input[type="radio"],
+html[data-style="startrek"] input[type="radio"] {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ff9900;
+  border-radius: 0.7em 0.15em 0.7em 0.15em;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+html[data-style="startrektng"] input[type="checkbox"]:checked,
+html[data-style="lcars"] input[type="checkbox"]:checked,
+html[data-style="startrek"] input[type="checkbox"]:checked,
+html[data-style="startrektng"] input[type="radio"]:checked,
+html[data-style="lcars"] input[type="radio"]:checked,
+html[data-style="startrek"] input[type="radio"]:checked {
+  box-shadow: inset 0 0 0 4px #000;
+}
+
+html[data-style="startrektng"] input[type="range"],
+html[data-style="lcars"] input[type="range"],
+html[data-style="startrek"] input[type="range"] {
+  accent-color: #ff9900;
+}
+
+html[data-style="startrektng"] ::-webkit-scrollbar,
+html[data-style="lcars"] ::-webkit-scrollbar,
+html[data-style="startrek"] ::-webkit-scrollbar {
+  width: 18px;
+  height: 18px;
+}
+html[data-style="startrektng"] ::-webkit-scrollbar-track,
+html[data-style="lcars"] ::-webkit-scrollbar-track,
+html[data-style="startrek"] ::-webkit-scrollbar-track {
+  background: #000;
+}
+html[data-style="startrektng"] ::-webkit-scrollbar-thumb,
+html[data-style="lcars"] ::-webkit-scrollbar-thumb,
+html[data-style="startrek"] ::-webkit-scrollbar-thumb {
+  background: #ff9900;
+  border-radius: 9px;
+  border: 3px solid #000;
+}
+html[data-style="startrektng"] ::-webkit-scrollbar-thumb:hover,
+html[data-style="lcars"] ::-webkit-scrollbar-thumb:hover,
+html[data-style="startrek"] ::-webkit-scrollbar-thumb:hover {
+  background: #cc99ff;
+}
+html[data-style="startrektng"],
+html[data-style="lcars"],
+html[data-style="startrek"] {
+  scrollbar-color: #ff9900 #000;
+  scrollbar-width: auto;
+}
+
+html[data-style="startrektng"] .copy-btn,
+html[data-style="lcars"] .copy-btn,
+html[data-style="startrek"] .copy-btn {
+  color: #000;
+  background: #ffcc66;
+  border-radius: 0.5em 0.1em 0.5em 0.1em;
+  width: 16px;
+  height: 14px;
+}
+
+html[data-style="startrektng"] .caption-btns,
+html[data-style="lcars"] .caption-btns,
+html[data-style="startrek"] .caption-btns {
+  display: none;
+}

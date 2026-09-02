@@ -1,0 +1,23 @@
+{
+  "prettyName": "Austin Care Directory (sample)",
+  "tags": ["austin", "care", "sample"],
+  "shortDescription": "Sample outpatient directory for theme, table, and map testing.",
+  "longDescription": "Fictional providers for demonstrating search, sort, details, and eight visual themes. Not a real directory.",
+  "footerNote": "Sample data. Layout persists in this browser.",
+  "items": [
+    {
+      "name": "Dr. Elena Voss",
+      "business": "North Loop Practice",
+      "gender": "F",
+      "phone": "(512) 555-0142",
+      "address": "1200 W 6th St, Austin, TX",
+      "cost": "Most PPO / sliding scale",
+      "website": "https://example.com/voss",
+      "email": "evoss@example.com",
+      "ratings": "4.8 / thorough intake",
+      "proscons": "+ evening hours / - waitlist",
+      "photo": "EV",
+      "distance": "1.2 mi"
+    }
+  ]
+}

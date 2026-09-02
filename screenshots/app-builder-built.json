@@ -1,0 +1,40 @@
+{
+  "url": "http://127.0.0.1:8081/provider-hub-v12.html",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Provider Hub v12 - Eight Themes",
+      "hasCanvas": false,
+      "bodyTextLen": 2605,
+      "bodyTextHash": "a5b4e6a97fd0f677025ec97ac1feeec179e2b77a656d363ae9fa513920e5d01a",
+      "bodyTextPrefix": "◀ P Provider Hub v12 · Eight Themes · Map 📂 Import JSON (multi)",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Provider Hub v12 - Eight Themes",
+      "hasCanvas": false,
+      "bodyTextLen": 2589,
+      "bodyTextHash": "eedd4e5c879e1f307c77d6abb0e76654f4e8b766d815dce87d22d251eb4d2cab",
+      "bodyTextPrefix": "P Provider Hub v12 · Eight Themes · Map 📂 Import JSON (multi) ＋",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/app-builder-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/app-builder-built.json",
+  "divergesFromBaseline": true,
+  "baselineReasons": [
+    "desktop: body text replaced (similar length, page start changed)"
+  ]
+}

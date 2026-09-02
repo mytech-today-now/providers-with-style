@@ -1,0 +1,262 @@
+[
+  {
+    "styleKey": "startrektng",
+    "displayName": "Star Trek TNG LCARS",
+    "era": "1987-1994 television interface",
+    "depthModel": "flat-color mosaic with stadium end-caps",
+    "reference": "sttng.webp",
+    "mustDo": [
+      "Keep the field near-black, not navy-gray cards",
+      "Use amber, gold, and lavender bars with black ink on fills",
+      "Cut stadium end-caps on one side and square cuts on the other",
+      "Set chrome type to condensed uppercase with wide tracking",
+      "Treat tables as a readout: orange header, black rows, amber hairlines"
+    ],
+    "mustNot": [
+      "Drop shadows, glass blur, or 3D bevels",
+      "White cards on a light page",
+      "Material ripples or bounce easing",
+      "Rounded 8px dashboard cards",
+      "Emoji icons or default blue links"
+    ],
+    "palette": {
+      "field": "#000000",
+      "barPrimary": "#ff9900",
+      "barSecondary": "#cc99ff",
+      "barTertiary": "#9988ff",
+      "inkOnBar": "#000000",
+      "inkOnField": "#ffcc66",
+      "readout": "#ffffff"
+    },
+    "type": {
+      "chrome": "Antonio, Oswald, Arial Narrow, sans-serif",
+      "body": "Oswald, Helvetica Neue, Arial, sans-serif",
+      "mono": "ui-monospace, Consolas, monospace",
+      "chromeTransform": "uppercase",
+      "tracking": "0.08em"
+    },
+    "shape": {
+      "radius": "0",
+      "endCap": "0 1.4em 1.4em 0",
+      "button": "1.3em 0.22em 0.22em 1.3em",
+      "bevel": "none"
+    },
+    "tables": "Header is a solid amber bar with black condensed uppercase. Rows sit on black with a 1px #3a2200 separator. No zebra. Hover tints #1a0f00. Selected row uses a left amber rail.",
+    "lists": "No bullets. Flush items with an 8px amber left bar. Ordered lists use tabular decimal-leading-zero catalog numbers in white.",
+    "controls": "Buttons are flat color lozenges, no border, uppercase labels. Inputs are black with an amber underline only. Checkboxes are small orange lozenges with a black inset when on. Focus is a 2px gold rectangle. Motion is a 80-160ms brightness pulse.",
+    "icons": "Geometric lozenges and bars only, 14-18px. Duplicate-rectangle copy glyph. No pictograms.",
+    "backgrounds": "Pure black field. Optional 4px amber scan suggestion at 3% opacity. No wallpaper, no mesh, no vignette.",
+    "scrollbars": "18px, black track, orange pill thumb, purple on hover, no overlay style.",
+    "sidebarTreatment": "Left LCARS rail: orange header capsule, stacked end-capped dataset blocks cycling orange, lavender, blue, gold. Section titles are orange bars with right stadium caps.",
+    "titlePaneTreatment": "Top orange strip labeled LCARS with a round right cut. Title in condensed gold uppercase on black. Disclaimer is a left-thick orange rail, not a yellow warning card.",
+    "modalTreatment": "Black plate with an orange stadium header rail and a darker orange footer rail. No drop shadow. Tabs are orange/brown lozenges sitting on an 8px amber bar."
+  },
+  {
+    "styleKey": "lcars",
+    "displayName": "LCARS",
+    "era": "1987- television interface",
+    "depthModel": "flat-color mosaic with stadium end-caps",
+    "reference": "sttng.webp",
+    "mustDo": [
+      "Same grammar as TNG LCARS",
+      "Lean the secondary rail toward cool blue #9999ff",
+      "Keep black field and stadium geometry",
+      "Uppercase condensed chrome",
+      "Flat paint, never glass"
+    ],
+    "mustNot": [
+      "Bevels or drop shadows",
+      "White dialog cards",
+      "Navy instead of black",
+      "Rounded modern buttons",
+      "Gradient fills on bars"
+    ],
+    "palette": {
+      "field": "#000000",
+      "barPrimary": "#ff9900",
+      "barSecondary": "#9999ff",
+      "barTertiary": "#cc99ff",
+      "inkOnBar": "#000000",
+      "inkOnField": "#ffcc66",
+      "readout": "#ffffff"
+    },
+    "type": {
+      "chrome": "Antonio, Oswald, Arial Narrow, sans-serif",
+      "body": "Oswald, Helvetica Neue, Arial, sans-serif",
+      "mono": "ui-monospace, Consolas, monospace",
+      "chromeTransform": "uppercase",
+      "tracking": "0.08em"
+    },
+    "shape": {
+      "radius": "0",
+      "endCap": "0 1.4em 1.4em 0",
+      "button": "1.3em 0.22em 0.22em 1.3em",
+      "bevel": "none"
+    },
+    "tables": "Same LCARS readout as startrektng.",
+    "lists": "Same flush catalog lists as startrektng.",
+    "controls": "Same lozenge controls as startrektng, secondary actions in #9999ff.",
+    "icons": "Geometric lozenges, no trademarked emblems.",
+    "backgrounds": "Black field, no texture beyond a faint scan.",
+    "scrollbars": "18px orange on black.",
+    "sidebarTreatment": "Left rail of end-capped color blocks.",
+    "titlePaneTreatment": "Orange LCARS header strip with round cut.",
+    "modalTreatment": "Black plate, orange header and footer rails."
+  },
+  {
+    "styleKey": "startrek",
+    "displayName": "Star Trek LCARS",
+    "era": "1987- franchise interface language",
+    "depthModel": "flat-color mosaic with stadium end-caps",
+    "reference": "sttng.webp",
+    "mustDo": [
+      "Share TNG LCARS geometry and type",
+      "Allow a slightly cooler accent-2 (#7788ff)",
+      "Keep black ink on orange bars",
+      "Use catalog numbering in lists",
+      "Instant or short brightness pulses only"
+    ],
+    "mustNot": [
+      "Skeuomorphic panels",
+      "Drop shadows",
+      "Inter or Roboto as chrome fonts",
+      "Hamburger-era cards",
+      "Rainbow gradients"
+    ],
+    "palette": {
+      "field": "#000000",
+      "barPrimary": "#ff9900",
+      "barSecondary": "#7788ff",
+      "barTertiary": "#cc66ff",
+      "inkOnBar": "#000000",
+      "inkOnField": "#ffcc66",
+      "readout": "#ffffff"
+    },
+    "type": {
+      "chrome": "Antonio, Oswald, Arial Narrow, sans-serif",
+      "body": "Oswald, Helvetica Neue, Arial, sans-serif",
+      "mono": "ui-monospace, Consolas, monospace",
+      "chromeTransform": "uppercase",
+      "tracking": "0.08em"
+    },
+    "shape": {
+      "radius": "0",
+      "endCap": "0 1.4em 1.4em 0",
+      "button": "1.3em 0.22em 0.22em 1.3em",
+      "bevel": "none"
+    },
+    "tables": "Amber header, black rows, gold hover wash.",
+    "lists": "No markers, amber rail, catalog numbers on ol.",
+    "controls": "Flat lozenges, underline inputs, gold focus ring.",
+    "icons": "Bars and lozenges only.",
+    "backgrounds": "Black.",
+    "scrollbars": "Thick orange/purple.",
+    "sidebarTreatment": "Stacked LCARS blocks.",
+    "titlePaneTreatment": "Top orange bar, gold title.",
+    "modalTreatment": "Black LCARS plate with orange rails."
+  },
+  {
+    "styleKey": "win95",
+    "displayName": "Windows 95 classic",
+    "era": "1995-2001 desktop chrome",
+    "depthModel": "2px bevel, outset raised and inset sunken, radius 0",
+    "reference": "winxp-image.jpg",
+    "mustDo": [
+      "Face color #c0c0c0 on a teal #008080 desktop",
+      "Active caption #000080 with white 11px bold title",
+      "2px outset highlight #fff / shadow #000, reverse for inset",
+      "Dotted 1px black focus, never a glow",
+      "Navy table headers, 1px #808080 cell borders, #ffffcc hover"
+    ],
+    "mustNot": [
+      "Border-radius above 0",
+      "Box-shadow blurs or glass",
+      "Luna gloss or red XP caption buttons",
+      "Inter or Roboto as chrome fonts",
+      "Overlay scrollbars or emoji icons"
+    ],
+    "palette": {
+      "field": "#008080",
+      "barPrimary": "#000080",
+      "barSecondary": "#c0c0c0",
+      "barTertiary": "#808080",
+      "inkOnBar": "#ffffff",
+      "inkOnField": "#000000",
+      "readout": "#000000"
+    },
+    "type": {
+      "chrome": "Tahoma, MS Sans Serif, Segoe UI, sans-serif",
+      "body": "Tahoma, MS Sans Serif, sans-serif",
+      "mono": "Courier New, Consolas, monospace",
+      "chromeTransform": "none",
+      "tracking": "0"
+    },
+    "shape": {
+      "radius": "0",
+      "endCap": "0",
+      "button": "0",
+      "bevel": "2px outset #fff #000 #000 #fff"
+    },
+    "tables": "Navy header, white text, 1px black header borders, 1px #808080 cells, white/gray zebra, yellow hover, navy selected row with white text. Inset listview well.",
+    "lists": "Square bullets in menus and copy. Menu rows ~18px with a 16px icon slot. Nested lists indent 12-16px.",
+    "controls": "Gray 3D buttons ~75x23, default button gets a 1px black outer ring. Inputs white inset 2px. Checkboxes 13px inset squares with a black tick. Radios inset circles. Tabs are 3D folder tabs. Focus is a dotted rectangle.",
+    "icons": "16x16 geometric originals: 1px black outline, chunky fills in navy, teal, yellow, red. Caption buttons are tiny 3D gray squares with _, square, and X. Not Fluent glyphs.",
+    "backgrounds": "Teal desktop #008080. Optional 4px dither. Window faces #c0c0c0. No wallpaper bitmap required.",
+    "scrollbars": "16px gray track, outset thumb, arrow buttons at both ends.",
+    "sidebarTreatment": "A 3D Explorer window with a navy caption labeled Datasets. Selected dataset row is navy with white text.",
+    "titlePaneTreatment": "3D window with navy caption Provider Hub. Client area gray. Disclaimer is a yellow inset well like a tooltip or help note.",
+    "modalTreatment": "Classic dialog: gray face, navy caption, tiny 3D close button, inset fields, default OK with black outer ring. Backdrop does not dim the desktop."
+  },
+  {
+    "styleKey": "windows95plus",
+    "displayName": "Windows 95 Plus! / OSR2",
+    "era": "1995-1997 desktop chrome",
+    "depthModel": "2px bevel plus optional Win98 caption gradient",
+    "reference": "winxp-image.jpg",
+    "mustDo": [
+      "Keep the same 9x 3D model as win95",
+      "Use a left-to-right caption gradient #0a246a to #1084d0",
+      "Retain teal desktop and silver faces",
+      "Keep radius 0 and dotted focus",
+      "Do not mix in Luna gloss"
+    ],
+    "mustNot": [
+      "XP Luna blue glass",
+      "Rounded caption buttons",
+      "Drop-shadow cards",
+      "Modern overlay scrollbars",
+      "Uppercase chrome transforms"
+    ],
+    "palette": {
+      "field": "#008080",
+      "barPrimary": "#0a246a",
+      "barSecondary": "#c0c0c0",
+      "barTertiary": "#1084d0",
+      "inkOnBar": "#ffffff",
+      "inkOnField": "#000000",
+      "readout": "#000000"
+    },
+    "type": {
+      "chrome": "Tahoma, MS Sans Serif, Segoe UI, sans-serif",
+      "body": "Tahoma, MS Sans Serif, sans-serif",
+      "mono": "Courier New, Consolas, monospace",
+      "chromeTransform": "none",
+      "tracking": "0"
+    },
+    "shape": {
+      "radius": "0",
+      "endCap": "0",
+      "button": "0",
+      "bevel": "2px outset #fff #000 #000 #fff"
+    },
+    "tables": "Same 9x listview as win95, navy-to-blue caption on the parent window.",
+    "lists": "Square bullets, 18px menu rows.",
+    "controls": "Identical 3D buttons and inset fields, gradient only on captions.",
+    "icons": "16x16 geometric 9x constructions.",
+    "backgrounds": "Teal desktop, silver windows.",
+    "scrollbars": "16px 3D scrollbar with arrow buttons.",
+    "sidebarTreatment": "Explorer window with gradient caption.",
+    "titlePaneTreatment": "3D window, gradient caption.",
+    "modalTreatment": "Dialog with gradient caption and 3D close button."
+  }
+]

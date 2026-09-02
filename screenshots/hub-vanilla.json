@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/provider-hub-v12.html",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Provider Hub v12 - Eight Themes",
+      "hasCanvas": false,
+      "bodyTextLen": 2605,
+      "bodyTextHash": "20d838f4378d710a336299063affb0ab3dff2781a897d300bcbb86e20b456b8f",
+      "bodyTextPrefix": "◀ P PROVIDER HUB V12 · EIGHT THEMES · MAP 📂 IMPORT JSON (MULTI)",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/hub-vanilla.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Provider Hub v12 - Eight Themes",
+      "hasCanvas": false,
+      "bodyTextLen": 2589,
+      "bodyTextHash": "eedd4e5c879e1f307c77d6abb0e76654f4e8b766d815dce87d22d251eb4d2cab",
+      "bodyTextPrefix": "P Provider Hub v12 · Eight Themes · Map 📂 Import JSON (multi) ＋",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/hub-vanilla-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/hub-vanilla.json"
+}
