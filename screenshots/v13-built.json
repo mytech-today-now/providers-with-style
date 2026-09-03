@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8081/provider-hub-v13.html",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "Provider Hub v13",
+      "hasCanvas": false,
+      "bodyTextLen": 2677,
+      "bodyTextHash": "96349e382a973024ec300904c0baafe4f020bd7d2c762d4d9ee31a7f3d793246",
+      "bodyTextPrefix": "◀ P Provider Hub v13 · Eleven Themes · Map 📂 Import JSON (multi",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/v13-built.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "Provider Hub v13",
+      "hasCanvas": false,
+      "bodyTextLen": 2675,
+      "bodyTextHash": "17f39805db6b2d42378da26c4176beab4e01bbbc8a9c9e77d3f4852bfece4947",
+      "bodyTextPrefix": "P Provider Hub v13 · Eleven Themes · Map 📂 Import JSON (multi) ",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/v13-built-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/v13-built.json"
+}

@@ -3178,14 +3178,18 @@
     try {
       const sessionStyle = sessionStorage.getItem(SS_STYLE);
       if (sessionStyle) {
-        const mapped = resolveStyle(sessionStyle);
-        if (ALL_STYLES.includes(mapped) && (ALL_STYLES.includes(sessionStyle) || STYLE_ALIASES[sessionStyle])) {
+        if (ALL_STYLES.includes(sessionStyle) || STYLE_ALIASES[sessionStyle]) {
+          const mapped = resolveStyle(sessionStyle);
           styleUserOverride = true;
           applyStyle(mapped);
           try { sessionStorage.setItem(SS_STYLE, mapped); } catch (e) {}
           log('Restored session style:', mapped);
           return;
         }
+        applyStyle(FALLBACK_STYLE);
+        try { sessionStorage.setItem(SS_STYLE, FALLBACK_STYLE); } catch (e) {}
+        log('Unknown session style, using fallback:', sessionStyle);
+        return;
       }
       let prefStyle = null;
       try {
@@ -3196,8 +3200,8 @@
         }
       } catch (e) {}
       if (prefStyle) {
-        const mappedPref = resolveStyle(prefStyle);
-        if (ALL_STYLES.includes(mappedPref) && (ALL_STYLES.includes(prefStyle) || STYLE_ALIASES[prefStyle])) {
+        if (ALL_STYLES.includes(prefStyle) || STYLE_ALIASES[prefStyle]) {
+          const mappedPref = resolveStyle(prefStyle);
           styleUserOverride = true;
           applyStyle(mappedPref);
           try { sessionStorage.setItem(SS_STYLE, mappedPref); } catch (e) {}

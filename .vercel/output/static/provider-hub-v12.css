@@ -1087,6 +1087,8 @@ a { color: var(--link); font-weight: 600; }
   box-shadow: 8px 8px 0 rgba(45, 42, 62, 0.2);
   box-sizing: border-box;
   overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
 }
 .modal.wide { max-width: 720px; }
 .modal h3 {
@@ -1135,6 +1137,11 @@ a { color: var(--link); font-weight: 600; }
   justify-content: flex-end;
   margin-top: 14px;
   flex-wrap: wrap;
+  position: sticky;
+  bottom: 0;
+  padding-top: 8px;
+  background: var(--modal-bg);
+  z-index: 2;
 }
 .form-row {
   display: grid;

@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Provider Hub v12";
+const APP_NAME = "Provider Hub v14";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -15,7 +15,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Provider directory with eight production themes: LCARS, Windows XP, Windows 11 Mica, Glassmorphism, Pixel 8-Bit, Corporate Clean, Psychedelic Blotter, and Web 2.0 Glossy.",
+          "Provider directory with twenty production themes including Neuomorphism, Bootstrap 3, Y2K, 1990s Early Web, Memphis Corporate, Flat Design, Cinematic, Material Design, Neo-Brutalism, LCARS, Windows XP, Windows 3.1, Swiss Modernist, IBM PC Monochrome Terminal, and Psychedelic Blotter.",
       },
     ],
     links: [

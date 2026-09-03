@@ -2,7 +2,7 @@ import { i as __toESM } from "../_runtime.mjs";
 import { L as require_react, _ as useRouter, f as createRouter, g as createRootRoute, h as createFileRoute, l as Scripts, m as lazyRouteComponent, p as Outlet, u as HeadContent, v as require_jsx_runtime } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as TriangleAlert } from "../_libs/lucide-react.mjs";
 import { a as union, i as string, n as number, r as object, t as literal } from "../_libs/zod.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-Bysc4v0X.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-C93tJWMa.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
 function AppErrorComponent({ error }) {
@@ -271,8 +271,8 @@ function PreviewHostBridge() {
 	}, [router]);
 	return null;
 }
-var styles_default = "/assets/styles-CNf2xVIV.css";
-var APP_NAME = "Provider Hub v12";
+var styles_default = "/assets/styles-JYe5epvu.css";
+var APP_NAME = "Provider Hub v14";
 var Route$1 = createRootRoute({
 	head: () => ({
 		meta: [
@@ -288,7 +288,7 @@ var Route$1 = createRootRoute({
 			},
 			{
 				name: "description",
-				content: "Provider directory with eight production themes: LCARS, Windows XP, Windows 11 Mica, Glassmorphism, Pixel 8-Bit, Corporate Clean, Psychedelic Blotter, and Web 2.0 Glossy."
+				content: "Provider directory with twenty production themes including Neuomorphism, Bootstrap 3, Y2K, 1990s Early Web, Memphis Corporate, Flat Design, Cinematic, Material Design, Neo-Brutalism, LCARS, Windows XP, Windows 3.1, Swiss Modernist, IBM PC Monochrome Terminal, and Psychedelic Blotter."
 			}
 		],
 		links: [
@@ -323,7 +323,7 @@ var Route$1 = createRootRoute({
 		] })]
 	})
 });
-var $$splitComponentImporter = () => import("./routes-BGx74waA.mjs");
+var $$splitComponentImporter = () => import("./routes-DOu00RUm.mjs");
 var rootRouteChildren = { IndexRoute: createFileRoute("/")({
 	ssr: false,
 	component: lazyRouteComponent($$splitComponentImporter, "component")

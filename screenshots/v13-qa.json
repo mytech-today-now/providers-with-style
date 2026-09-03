@@ -1,0 +1,146 @@
+{
+  "controls": {
+    "inSidebar": [
+      true,
+      true,
+      true
+    ],
+    "legends": [
+      "Mode",
+      "Style",
+      "Density",
+      "Maps"
+    ],
+    "styles": [
+      {
+        "v": "lcars",
+        "t": "LCARS (inspired by 1987-era command interfaces)"
+      },
+      {
+        "v": "winxp",
+        "t": "Windows XP Luna (2001-2007)"
+      },
+      {
+        "v": "windows-11-mica",
+        "t": "Windows 11 Mica (2021-)"
+      },
+      {
+        "v": "glassmorphism",
+        "t": "Glassmorphism (2018-2023)"
+      },
+      {
+        "v": "pixel-8bit",
+        "t": "Pixel 8-Bit Revival (2010s-)"
+      },
+      {
+        "v": "corporate-clean",
+        "t": "Corporate Clean (2010s-)"
+      },
+      {
+        "v": "psychedelic-blotter",
+        "t": "Psychedelic Blotter (1960s / revival)"
+      },
+      {
+        "v": "swiss-modernist",
+        "t": "Swiss Modernist"
+      },
+      {
+        "v": "windows-31-program-manager",
+        "t": "Windows 3.1 Program Manager"
+      },
+      {
+        "v": "ibm-pc-monochrome-terminal",
+        "t": "IBM PC Monochrome Terminal"
+      },
+      {
+        "v": "web2-glossy",
+        "t": "Web 2.0 Glossy (2004-2012)"
+      }
+    ],
+    "modes": [
+      "system",
+      "light",
+      "dark",
+      "large",
+      "minimized"
+    ],
+    "mapsBtn": "Key",
+    "mapsStatus": "Key: missing",
+    "titleHasMode": false,
+    "styleAttr": "swiss-modernist",
+    "modeAttr": "system",
+    "rows": 6,
+    "overflowX": false
+  },
+  "style-swiss-modernist": "swiss-modernist",
+  "style-windows-31-program-manager": "windows-31-program-manager",
+  "style-ibm-pc-monochrome-terminal": "ibm-pc-monochrome-terminal",
+  "style-psychedelic-blotter": "psychedelic-blotter",
+  "style-lcars": "lcars",
+  "style-winxp": "winxp",
+  "style-corporate-clean": "corporate-clean",
+  "ibmLargeFont": "1.35",
+  "searchElena": {
+    "n": 1,
+    "hasElena": true,
+    "hasMarcus": false
+  },
+  "persisted": "swiss-modernist",
+  "afterReload": "swiss-modernist",
+  "unknownFallback": "corporate-clean",
+  "viewports": {
+    "320": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 38.734375,
+      "sidebarTop": 224,
+      "tableTop": 454
+    },
+    "375": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 38.734375,
+      "sidebarTop": 224,
+      "tableTop": 454
+    },
+    "768": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 32.59375,
+      "sidebarTop": 224,
+      "tableTop": 550
+    },
+    "1024": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 32.59375,
+      "sidebarTop": 800,
+      "tableTop": 326
+    },
+    "1440": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 32.59375,
+      "sidebarTop": 800,
+      "tableTop": 326
+    },
+    "2560": {
+      "overflowX": false,
+      "hasMode": true,
+      "hasStyle": true,
+      "mapsBtn": 32.59375,
+      "sidebarTop": 800,
+      "tableTop": 326
+    }
+  },
+  "errors": [],
+  "focusVisible": {
+    "outline": "rgb(101, 255, 145) dotted 2px",
+    "outlineWidth": "2px"
+  }
+}

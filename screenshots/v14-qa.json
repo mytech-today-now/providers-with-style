@@ -1,0 +1,129 @@
+{
+  "errors": [],
+  "controls": {
+    "inSidebar": [
+      true,
+      true,
+      true
+    ],
+    "legends": [
+      "Mode",
+      "Style",
+      "Density",
+      "Maps"
+    ],
+    "styles": [
+      "lcars",
+      "winxp",
+      "windows-11-mica",
+      "glassmorphism",
+      "neuomorphism",
+      "bootstrap-3",
+      "y2k-early-2000s",
+      "early-web-1990s",
+      "memphis-corporate",
+      "flat-design",
+      "cinematic",
+      "material-design",
+      "neo-brutalism",
+      "pixel-8bit",
+      "corporate-clean",
+      "psychedelic-blotter",
+      "swiss-modernist",
+      "windows-31-program-manager",
+      "ibm-pc-monochrome-terminal",
+      "web2-glossy"
+    ],
+    "modes": [
+      "system",
+      "light",
+      "dark",
+      "large",
+      "minimized"
+    ],
+    "mapsBtn": "Key",
+    "titleHasMode": false,
+    "styleCount": 20,
+    "rows": 6,
+    "overflowX": false
+  },
+  "style-neuomorphism": "neuomorphism",
+  "style-bootstrap-3": "bootstrap-3",
+  "style-y2k-early-2000s": "y2k-early-2000s",
+  "style-early-web-1990s": "early-web-1990s",
+  "style-memphis-corporate": "memphis-corporate",
+  "style-flat-design": "flat-design",
+  "style-cinematic": "cinematic",
+  "style-material-design": "material-design",
+  "style-neo-brutalism": "neo-brutalism",
+  "style-psychedelic-blotter": "psychedelic-blotter",
+  "style-lcars": "lcars",
+  "style-glassmorphism": "glassmorphism",
+  "v14-neuomorphism-dark-compact": {
+    "style": "neuomorphism",
+    "mode": "dark"
+  },
+  "v14-bootstrap-3-light-compact": {
+    "style": "bootstrap-3",
+    "mode": "light"
+  },
+  "v14-y2k-dark-loose": {
+    "style": "y2k-early-2000s",
+    "mode": "dark"
+  },
+  "v14-early-web-light-compact": {
+    "style": "early-web-1990s",
+    "mode": "light"
+  },
+  "v14-memphis-light-loose": {
+    "style": "memphis-corporate",
+    "mode": "light"
+  },
+  "v14-flat-dark-compact": {
+    "style": "flat-design",
+    "mode": "dark"
+  },
+  "v14-cinematic-dark-loose": {
+    "style": "cinematic",
+    "mode": "dark"
+  },
+  "v14-material-light-compact": {
+    "style": "material-design",
+    "mode": "light"
+  },
+  "v14-neobrutal-dark-compact": {
+    "style": "neo-brutalism",
+    "mode": "dark"
+  },
+  "v14-blotter-light-loose": {
+    "style": "psychedelic-blotter",
+    "mode": "light"
+  },
+  "largeOk": true,
+  "minimizedOk": true,
+  "searchHits": 1,
+  "jsonUrl": {
+    "status": "Discovered: 1 | Loaded: 1 | Duplicates: 0 | Incompatible: 0 | Failed: 0",
+    "rows": 6
+  },
+  "vp320": {
+    "overflowX": false,
+    "controlsVisible": true,
+    "tableVisible": true
+  },
+  "vp375": {
+    "overflowX": false,
+    "controlsVisible": true,
+    "tableVisible": true
+  },
+  "vp768": {
+    "overflowX": false,
+    "controlsVisible": true,
+    "tableVisible": true
+  },
+  "vp1024": {
+    "overflowX": false,
+    "controlsVisible": true,
+    "tableVisible": true
+  }
+}

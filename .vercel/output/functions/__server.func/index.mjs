@@ -12,7 +12,7 @@ var install_page_default = "<!DOCTYPE html>\n<html lang=\"en\" class=\"device-de
 //#endregion
 //#region \0virtual:grok-og-identity
 var grokOgIdentity = { "site": {
-	"title": "Provider Hub v12",
+	"title": "Provider Hub v14",
 	"type": "website",
 	"card": "custom",
 	"color": "0F4C81",
