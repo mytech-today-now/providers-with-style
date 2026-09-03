@@ -101,16 +101,19 @@
       return '';
     }
     var chosen = '';
-    try { chosen = resolve(sessionStorage.getItem('providerHub_session_style_v3')); } catch (e) {}
-    if (!chosen) {
+    var rawSession = '';
+    try { rawSession = sessionStorage.getItem('providerHub_session_style_v3') || ''; } catch (e) {}
+    if (rawSession) {
+      chosen = resolve(rawSession) || 'corporate-clean';
+    } else {
       try {
         var prefs = JSON.parse(localStorage.getItem('providerHubPrefs_v2') || '{}');
         chosen = resolve(prefs && prefs.style);
       } catch (e) {}
-    }
-    if (!chosen) {
-      chosen = allowed[Math.floor(Math.random() * allowed.length)];
-      try { sessionStorage.setItem('providerHub_session_style_v3', chosen); } catch (e) {}
+      if (!chosen) {
+        chosen = allowed[Math.floor(Math.random() * allowed.length)];
+        try { sessionStorage.setItem('providerHub_session_style_v3', chosen); } catch (e) {}
+      }
     }
     document.documentElement.setAttribute('data-style', chosen);
     try {
