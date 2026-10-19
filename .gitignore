@@ -3,3 +3,6 @@ node_modules/
 .github_repo
 .env
 .env.*
+
+# Augment Extensions
+.augment/extensions.json

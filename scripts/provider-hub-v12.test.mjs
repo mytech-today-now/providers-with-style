@@ -1,7 +1,18 @@
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { dirname, resolve } from "node:path";
 import { describe, it } from "node:test";
+import { Script } from "node:vm";
+import { fileURLToPath } from "node:url";
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const file = (...parts) => resolve(ROOT, ...parts);
+const V12_ROOT_HTML = file("archive", "provider-hub", "v12", "root", "provider-hub-v12.html");
+const V12_ROOT_CSS = file("archive", "provider-hub", "v12", "root", "provider-hub-v12.css");
+const V12_ROOT_JS = file("archive", "provider-hub", "v12", "root", "provider-hub-v12.js");
+const V12_PUBLIC_HTML = file("archive", "provider-hub", "v12", "public", "provider-hub-v12.html");
+const V12_PUBLIC_CSS = file("archive", "provider-hub", "v12", "public", "provider-hub-v12.css");
+const V12_PUBLIC_JS = file("archive", "provider-hub", "v12", "public", "provider-hub-v12.js");
 
 const THEMES = [
   "lcars",
@@ -15,12 +26,12 @@ const THEMES = [
 ];
 
 const PATHS = [
-  "/workspace/provider-hub-v12.html",
-  "/workspace/provider-hub-v12.css",
-  "/workspace/provider-hub-v12.js",
-  "/workspace/public/provider-hub-v12.html",
-  "/workspace/public/provider-hub-v12.css",
-  "/workspace/public/provider-hub-v12.js",
+  V12_ROOT_HTML,
+  V12_ROOT_CSS,
+  V12_ROOT_JS,
+  V12_PUBLIC_HTML,
+  V12_PUBLIC_CSS,
+  V12_PUBLIC_JS,
 ];
 
 function read(p) {
@@ -35,7 +46,7 @@ describe("Provider Hub v12 files", () => {
   }
 
   it("HTML references v12 assets only", () => {
-    const html = read("/workspace/provider-hub-v12.html");
+    const html = read(V12_ROOT_HTML);
     assert.match(html, /provider-hub-v12\.css/);
     assert.match(html, /provider-hub-v12\.js/);
     assert.doesNotMatch(html, /provider-hub-v11\.(css|js)/);
@@ -49,7 +60,7 @@ describe("Provider Hub v12 files", () => {
   });
 
   it("JS catalogs exactly eight themes and aliases", () => {
-    const js = read("/workspace/provider-hub-v12.js");
+    const js = read(V12_ROOT_JS);
     for (const t of THEMES) {
       assert.ok(js.includes(`value: '${t}'`), t);
     }
@@ -58,14 +69,11 @@ describe("Provider Hub v12 files", () => {
     assert.match(js, /FALLBACK_STYLE = 'corporate-clean'/);
     assert.match(js, /providerHub_session_style_v3/);
     assert.match(js, /providerHubPrefs_v2/);
-    const check = spawnSync("node", ["--check", "/workspace/provider-hub-v12.js"], {
-      encoding: "utf8",
-    });
-    assert.equal(check.status, 0, check.stderr);
+    assert.doesNotThrow(() => new Script(js, { filename: V12_ROOT_JS }));
   });
 
   it("CSS scopes every theme and covers states", () => {
-    const css = read("/workspace/provider-hub-v12.css");
+    const css = read(V12_ROOT_CSS);
     for (const t of THEMES) {
       assert.ok(css.includes(`html[data-style="${t}"]`), t);
       assert.ok(css.includes(`html[data-style="${t}"] .btn:hover`), `${t} hover`);
@@ -82,7 +90,7 @@ describe("Provider Hub v12 files", () => {
   });
 
   it("unknown styles fail safe via resolveStyle", () => {
-    const js = read("/workspace/provider-hub-v12.js");
+    const js = read(V12_ROOT_JS);
     const start = js.indexOf("  const STYLE_CATALOG = [");
     const end = js.indexOf("  /* ---------- DOM ---------- */");
     assert.ok(start >= 0 && end > start, "catalog block not found");
@@ -98,9 +106,6 @@ describe("Provider Hub v12 files", () => {
       if (out[6] !== 'corporate-clean') throw new Error('empty');
       if (out[7] !== 'corporate-clean') throw new Error('null');
     `;
-    const run = spawnSync("node", ["--input-type=module", "-e", snippet], {
-      encoding: "utf8",
-    });
-    assert.equal(run.status, 0, run.stderr || run.stdout);
+    assert.doesNotThrow(() => new Script(snippet).runInNewContext());
   });
 });

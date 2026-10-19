@@ -1,1 +1,0 @@
-import{t as e}from"./index-D23i53Bn.js";var t=e();function n(){return(0,t.jsxs)(t.Fragment,{children:[(0,t.jsx)(`h1`,{className:`sr-only`,children:`Provider Hub v14`}),(0,t.jsx)(`iframe`,{src:`/provider-hub-v14.html`,title:`Provider Hub v14 directory`,style:{position:`fixed`,inset:0,width:`100%`,height:`100%`,border:`none`,background:`#0f1720`}})]})}export{n as component};

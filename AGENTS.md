@@ -346,3 +346,27 @@ auth/db: OFF by default — sign-in, @/lib/db or migrations ONLY on an accounts 
 never:   build an app for a greeting/number/question; invent imagine_* calls;
          ask the user to run commands; delete or abandon /workspace/startup.sh
 ```
+
+
+# Augment Extensions Integration
+
+This project uses Augment Extensions for additional AI coding guidelines.
+
+## For AI Agents
+
+Use the `augx` CLI to discover and apply extension modules:
+
+```bash
+# List linked modules
+augx list --linked
+
+# Show module details
+augx show <module-name>
+
+# Search for modules
+augx search <keyword>
+```
+
+## Linked Modules
+
+Check `.augment/extensions.json` for currently linked modules.

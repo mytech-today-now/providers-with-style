@@ -1,7 +1,18 @@
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
-import { spawnSync } from "node:child_process";
+import { dirname, resolve } from "node:path";
 import { describe, it } from "node:test";
+import { Script } from "node:vm";
+import { fileURLToPath } from "node:url";
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
+const file = (...parts) => resolve(ROOT, ...parts);
+const V13_SOURCE_HTML = file("archive", "provider-hub", "v13", "providers-with-style", "providers", "provider-hub-v13.html");
+const V13_SOURCE_CSS = file("archive", "provider-hub", "v13", "providers-with-style", "providers", "provider-hub-v13.css");
+const V13_SOURCE_JS = file("archive", "provider-hub", "v13", "providers-with-style", "providers", "provider-hub-v13.js");
+const V13_PUBLIC_HTML = file("archive", "provider-hub", "v13", "public", "provider-hub-v13.html");
+const V13_PUBLIC_CSS = file("archive", "provider-hub", "v13", "public", "provider-hub-v13.css");
+const V13_PUBLIC_JS = file("archive", "provider-hub", "v13", "public", "provider-hub-v13.js");
 
 const THEMES = [
   "lcars",
@@ -18,12 +29,12 @@ const THEMES = [
 ];
 
 const PATHS = [
-  "/workspace/providers-with-style/providers/provider-hub-v13.html",
-  "/workspace/providers-with-style/providers/provider-hub-v13.css",
-  "/workspace/providers-with-style/providers/provider-hub-v13.js",
-  "/workspace/public/provider-hub-v13.html",
-  "/workspace/public/provider-hub-v13.css",
-  "/workspace/public/provider-hub-v13.js",
+  V13_SOURCE_HTML,
+  V13_SOURCE_CSS,
+  V13_SOURCE_JS,
+  V13_PUBLIC_HTML,
+  V13_PUBLIC_CSS,
+  V13_PUBLIC_JS,
 ];
 
 function read(p) {
@@ -38,7 +49,7 @@ describe("Provider Hub v13 files", () => {
   }
 
   it("HTML references v13 assets only and places display controls in the sidebar", () => {
-    const html = read("/workspace/providers-with-style/providers/provider-hub-v13.html");
+    const html = read(V13_SOURCE_HTML);
     assert.match(html, /provider-hub-v13\.css/);
     assert.match(html, /provider-hub-v13\.js/);
     assert.doesNotMatch(html, /provider-hub-v1[012]\.(css|js)/);
@@ -67,7 +78,7 @@ describe("Provider Hub v13 files", () => {
   });
 
   it("JS catalogs eleven themes and aliases", () => {
-    const js = read("/workspace/providers-with-style/providers/provider-hub-v13.js");
+    const js = read(V13_SOURCE_JS);
     for (const t of THEMES) {
       assert.ok(js.includes(`value: '${t}'`), t);
     }
@@ -79,15 +90,12 @@ describe("Provider Hub v13 files", () => {
     assert.match(js, /FALLBACK_STYLE = 'corporate-clean'/);
     assert.match(js, /providerHub_session_style_v3/);
     assert.match(js, /providerHubPrefs_v2/);
-    const check = spawnSync("node", ["--check", "/workspace/providers-with-style/providers/provider-hub-v13.js"], {
-      encoding: "utf8",
-    });
-    assert.equal(check.status, 0, check.stderr);
+    assert.doesNotThrow(() => new Script(js, { filename: V13_SOURCE_JS }));
     assert.equal(js.includes("\u2014") || js.includes("\u2013"), false);
   });
 
   it("CSS scopes every theme and covers states", () => {
-    const css = read("/workspace/providers-with-style/providers/provider-hub-v13.css");
+    const css = read(V13_SOURCE_CSS);
     for (const t of THEMES) {
       assert.ok(css.includes(`html[data-style="${t}"]`), t);
       assert.ok(css.includes(`html[data-style="${t}"] .btn:hover`), `${t} hover`);
@@ -105,7 +113,7 @@ describe("Provider Hub v13 files", () => {
   });
 
   it("unknown styles fail safe via resolveStyle", () => {
-    const js = read("/workspace/providers-with-style/providers/provider-hub-v13.js");
+    const js = read(V13_SOURCE_JS);
     const start = js.indexOf("  const STYLE_CATALOG = [");
     const end = js.indexOf("  /* ---------- DOM ---------- */");
     assert.ok(start >= 0 && end > start, "catalog block not found");
@@ -124,9 +132,6 @@ describe("Provider Hub v13 files", () => {
       if (out[9] !== 'corporate-clean') throw new Error('empty');
       if (out[10] !== 'corporate-clean') throw new Error('null');
     `;
-    const run = spawnSync("node", ["--input-type=module", "-e", snippet], {
-      encoding: "utf8",
-    });
-    assert.equal(run.status, 0, run.stderr || run.stdout);
+    assert.doesNotThrow(() => new Script(snippet).runInNewContext());
   });
 });

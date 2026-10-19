@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="system" data-style="corporate-clean">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Provider Hub v14</title>
+<link rel="stylesheet" href="provider-hub-v14.css">
+<script>
+(function () {
+  try {
+    var allowed = [
+      'lcars','winxp','windows-11-mica','glassmorphism',
+      'neuomorphism','bootstrap-3','y2k-early-2000s','early-web-1990s',
+      'memphis-corporate','flat-design','cinematic','material-design','neo-brutalism',
+      'pixel-8bit','corporate-clean',
+      'psychedelic-blotter','swiss-modernist','windows-31-program-manager',
+      'ibm-pc-monochrome-terminal','web2-glossy'
+    ];
+    var aliases = {
+      lcars:'lcars', startrek:'lcars', startrektng:'lcars',
+      winxp:'winxp',
+      'windows-11-mica':'windows-11-mica', windows11:'windows-11-mica', win11mica:'windows-11-mica',
+      glassmorphism:'glassmorphism', glass:'glassmorphism',
+      neuomorphism:'neuomorphism', neumorphism:'neuomorphism', softui:'neuomorphism',
+      'bootstrap-3':'bootstrap-3', bootstrap:'bootstrap-3', bootstrap3:'bootstrap-3',
+      'y2k-early-2000s':'y2k-early-2000s', y2k:'y2k-early-2000s',
+      'early-web-1990s':'early-web-1990s', web1:'early-web-1990s', geocities:'early-web-1990s',
+      'memphis-corporate':'memphis-corporate', memphis:'memphis-corporate',
+      'flat-design':'flat-design', flat:'flat-design',
+      cinematic:'cinematic',
+      'material-design':'material-design', material:'material-design',
+      'neo-brutalism':'neo-brutalism', neobrutal:'neo-brutalism', brutalist:'neo-brutalism',
+      'pixel-8bit':'pixel-8bit', pixel:'pixel-8bit',
+      'corporate-clean':'corporate-clean', corporate:'corporate-clean',
+      'psychedelic-blotter':'psychedelic-blotter', psychedelic:'psychedelic-blotter',
+      'swiss-modernist':'swiss-modernist', swiss:'swiss-modernist', swissmodern:'swiss-modernist',
+      'windows-31-program-manager':'windows-31-program-manager', win31:'windows-31-program-manager', windows3x:'windows-31-program-manager',
+      'ibm-pc-monochrome-terminal':'ibm-pc-monochrome-terminal', ibm:'ibm-pc-monochrome-terminal', phosphor:'ibm-pc-monochrome-terminal',
+      'web2-glossy':'web2-glossy', web2:'web2-glossy'
+    };
+    function resolve(v) {
+      v = String(v || '');
+      if (allowed.indexOf(v) !== -1) return v;
+      if (aliases[v]) return aliases[v];
+      return '';
+    }
+    var chosen = '';
+    try { chosen = resolve(sessionStorage.getItem('providerHub_session_style_v3')); } catch (e) {}
+    if (!chosen) {
+      try {
+        var prefs = JSON.parse(localStorage.getItem('providerHubPrefs_v2') || '{}');
+        chosen = resolve(prefs && prefs.style);
+      } catch (e) {}
+    }
+    if (!chosen) {
+      chosen = allowed[Math.floor(Math.random() * allowed.length)];
+      try { sessionStorage.setItem('providerHub_session_style_v3', chosen); } catch (e) {}
+    }
+    document.documentElement.setAttribute('data-style', chosen);
+    try {
+      var prefs2 = JSON.parse(localStorage.getItem('providerHubPrefs_v2') || '{}');
+      if (prefs2 && prefs2.mode) document.documentElement.setAttribute('data-mode', prefs2.mode);
+    } catch (e) {}
+  } catch (e) {}
+})();
+</script>
+
+</head>
+<body>
+<div class="app" id="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar" aria-label="Dataset management">
+    <div class="sidebar-resizer" id="sidebarResizer" title="Drag to resize sidebar"></div>
+    <button class="btn btn-ghost sidebar-collapse-btn" id="btnSidebarCollapse" type="button" title="Collapse / expand sidebar" aria-label="Collapse or expand sidebar">◀</button>
+    <div class="logo">
+      <div class="logo-mark">P</div>
+      <div>
+        <h1>Provider Hub</h1>
+        <span>v14 · Twenty Themes · Map</span>
+      </div>
+    </div>
+
+    <label class="btn btn-primary file-label">
+      <span>📂 Import JSON (multi)</span>
+      <input type="file" id="jsonInput" accept=".json,application/json" multiple aria-describedby="importLimitsHelp">
+    </label>
+    <button class="btn btn-accent" id="btnNewDataset" type="button">＋ New empty set</button>
+    <p class="import-limits" id="importLimitsHelp">Import limits: 10 MiB per file, 25 MiB and 100 files per import, 10,000 records total, nesting depth 20, and 10,000 characters per text field. These bounds keep parsing and browser storage responsive. Directory discovery follows at most 100 JSON files and 20 manifests.</p>
+
+    <div class="url-load">
+      <input type="url" id="urlInput" placeholder="JSON URL or folder URL..." aria-label="JSON URL or folder URL" aria-describedby="importLimitsHelp">
+      <button class="btn btn-ghost" id="btnLoadUrl" type="button" title="Load JSON or directory of JSON files">Load</button>
+      <button class="btn btn-ghost" id="btnCancelImport" type="button" hidden disabled>Cancel import</button>
+    </div>
+    <div class="url-load-status" id="urlLoadStatus" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <section class="display-controls title-controls" id="titleControls" aria-label="Display controls">
+      <fieldset class="display-fieldset">
+        <legend>Mode</legend>
+        <select id="modeSelect" aria-label="Display mode">
+          <option value="system">System</option>
+          <option value="light">Light</option>
+          <option value="dark">Dark</option>
+          <option value="large">Large</option>
+          <option value="minimized">Minimized</option>
+        </select>
+      </fieldset>
+      <fieldset class="display-fieldset">
+        <legend>Style</legend>
+        <select id="styleSelect" aria-label="Design language">
+          <!-- Populated by JS from expanded catalog -->
+        </select>
+      </fieldset>
+      <fieldset class="display-fieldset">
+        <legend>Density</legend>
+        <label class="density-control">
+          <span class="density-direction">Loose</span>
+          <input type="range" id="densitySlider" min="0.7" max="1.6" step="0.05" value="1" aria-label="Table density, loose to compact" aria-valuetext="Balanced">
+          <span class="density-direction">Compact</span>
+        </label>
+      </fieldset>
+      <fieldset class="display-fieldset">
+        <legend>Maps</legend>
+        <div class="display-maps-row">
+          <button class="btn btn-ghost" id="btnMapsKey" type="button" title="Manage Google Maps API key" aria-label="Manage Google Maps API key">Key</button>
+          <span class="note" id="mapsKeyStatus" aria-live="polite"></span>
+        </div>
+      </fieldset>
+    </section>
+
+    <div class="sidebar-section-title">Filter by tag</div>
+    <div class="tag-filter" id="tagFilter" role="group" aria-label="Tag filters">
+      <span class="tag-chip all active" data-tag="*" tabindex="0">All</span>
+    </div>
+
+    <div class="sidebar-section-title">Saved datasets</div>
+    <div class="dataset-list" id="datasetList" role="list">
+      <div class="empty-state" style="padding:16px 6px;font-size:0.85rem;">No datasets yet. Import a JSON file to get started.</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main" id="main">
+    <!-- Top: title + map -->
+    <div class="top-section" id="topSection">
+      <div class="title-pane" id="titlePane">
+        <div class="page-header" style="display:flex;align-items:flex-start;gap:8px;">
+          <div style="flex:1;min-width:0;">
+            <h2 id="pageTitle">Select or import a dataset</h2>
+            <p class="short-desc" id="shortDesc"></p>
+          </div>
+          <div class="header-actions">
+            <button class="btn btn-info" id="btnInfo" type="button" title="About & README" aria-label="Open information modal">i</button>
+          </div>
+        </div>
+        <div class="disclaimer-wrap" id="disclaimerWrap">
+          <div class="disclaimer" id="longDesc">
+            Import a compatible JSON file or create a new dataset. All table features (search, sort, drag-reorder columns, resize, show/hide, layout persistence) remain available. Datasets and their contents are stored in IndexedDB.
+          </div>
+        </div>
+      </div>
+      <div class="v-resizer top-split" id="titleMapResizer" title="Drag to resize title / map"></div>
+      <div class="map-pane" id="mapPane">
+        <div id="map" role="application" aria-label="Provider locations map"></div>
+        <div class="map-fallback" id="mapFallback" style="display:none;">
+          <p><strong>Map unavailable</strong></p>
+          <p id="mapFallbackMsg">A Google Maps API key is required (Maps JavaScript API + Geocoding). Add or manage your key to enable the map.</p>
+          <button class="btn btn-primary" id="btnMapKeyFromFallback" type="button" style="margin-top:10px;">Manage Maps API Key</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="h-resizer" id="topTableResizer" title="Drag to resize top section / table"></div>
+
+    <!-- Table area -->
+    <div class="table-area" id="tableArea">
+      <div class="toolbar">
+        <input type="search" id="search" placeholder="Search any word..." aria-label="Search table" disabled>
+        <button class="btn" id="toggleSettings" disabled>Columns</button>
+        <button class="btn" id="resetLayout" disabled>Reset Layout</button>
+      </div>
+
+      <div class="controls-bar">
+        <span class="note">Drag headers · Edge resize · Layout saved · Click copy icons to clipboard</span>
+      </div>
+
+      <div class="crud-bar" id="crudBar">
+        <button class="btn btn-primary" id="btnAddRow">＋ Add row</button>
+        <button class="btn" id="btnEditMeta">Edit dataset info</button>
+        <button class="btn btn-danger" id="btnDeleteDataset">Delete dataset</button>
+        <span class="note" id="itemCount"></span>
+      </div>
+
+      <div class="settings-panel" id="settingsPanel">
+        <strong>Visible columns:</strong><br>
+        <div id="columnToggles"></div>
+      </div>
+
+      <div class="table-scroll">
+        <table id="psychTable">
+          <thead><tr id="headerRow"></tr></thead>
+          <tbody id="tableBody">
+            <tr><td colspan="13" class="empty-state">No data loaded. Import a JSON or select a saved dataset.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin:2px 0 0;" id="footerNote">
+        Layout persists via localStorage + IndexedDB. Datasets stored in IndexedDB.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Meta Modal -->
+<div class="modal-backdrop" id="metaModal" role="dialog" aria-modal="true" aria-labelledby="metaModalTitle">
+  <div class="modal">
+    <h3 id="metaModalTitle">Save dataset</h3>
+    <label for="metaPrettyName">Pretty name *</label>
+    <input type="text" id="metaPrettyName" placeholder="e.g. Austin Psychiatrists 2025">
+    <label for="metaTags">Tags (comma-separated)</label>
+    <input type="text" id="metaTags" placeholder="psychiatry, austin, insurance">
+    <label for="metaShort">Short description</label>
+    <input type="text" id="metaShort" placeholder="One-line summary">
+    <label for="metaLong">Long description / disclaimer</label>
+    <p class="note" id="metaLongHelp">Allowed tags: <code>p</code>, <code>br</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>strong</code>, <code>em</code>, <code>b</code>, <code>i</code>, and <code>span</code> with class <code>pros</code> or <code>cons</code>. Other elements and all other attributes are discarded.</p>
+    <textarea id="metaLong" aria-describedby="metaLongHelp" placeholder="Optional longer text shown under the title"></textarea>
+    <label for="metaFooter">Footer note</label>
+    <input type="text" id="metaFooter" placeholder="Optional footer">
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="metaCancel">Cancel</button>
+      <button class="btn btn-primary" id="metaSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Row Modal -->
+<div class="modal-backdrop" id="rowModal" role="dialog" aria-modal="true" aria-labelledby="rowModalTitle">
+  <div class="modal" style="max-width:640px;">
+    <h3 id="rowModalTitle">Edit row</h3>
+    <div id="rowFormFields"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="rowCancel">Cancel</button>
+      <button class="btn btn-primary" id="rowSave">Save row</button>
+    </div>
+  </div>
+</div>
+
+<!-- Live Details Modal -->
+<div class="modal-backdrop" id="detailsModal" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle" aria-describedby="detailsModalHelp">
+  <div class="modal details-modal" tabindex="-1">
+    <div class="details-modal-header">
+      <div>
+        <h3 id="detailsModalTitle">Item details</h3>
+        <p class="note" id="detailsModalHelp">Changes are applied immediately. Structured values must contain valid JSON.</p>
+      </div>
+      <button class="btn btn-ghost details-close" id="detailsClose" type="button" aria-label="Close item details">Close</button>
+    </div>
+    <div class="details-fields" id="detailsFields"></div>
+  </div>
+</div>
+
+<!-- Confirm Modal -->
+<div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="modal" style="max-width:400px;">
+    <h3 id="confirmTitle">Confirm</h3>
+    <p id="confirmMessage" style="margin:0 0 8px;"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancel">Cancel</button>
+      <button class="btn btn-danger" id="confirmOk">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Info Modal -->
+<div class="modal-backdrop origin-policy-backdrop" id="originPolicyModal" role="dialog" aria-modal="true" aria-labelledby="originPolicyTitle" aria-describedby="originPolicyHelp" aria-hidden="true">
+  <div class="modal origin-policy-modal">
+    <h3 id="originPolicyTitle">Approve external origins</h3>
+    <p class="origin-policy-copy" id="originPolicyHelp">This directory points to files hosted by additional origins. Select each origin you approve for one-time requests in this import. Unselected origins will not be requested. Only origins are shown; paths and query values are hidden.</p>
+    <ul class="origin-policy-list" id="originPolicyList" aria-label="Origins awaiting approval"></ul>
+    <div class="modal-actions origin-policy-actions">
+      <button class="btn btn-ghost" id="originPolicyCancel" type="button">Cancel import</button>
+      <button class="btn btn-ghost" id="originPolicySkip" type="button">Skip external origins</button>
+      <button class="btn btn-primary" id="originPolicyAllow" type="button" disabled>Continue with selected</button>
+    </div>
+  </div>
+</div>
+
+<!-- Info Modal -->
+<div class="modal-backdrop" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="infoModalTitle">
+  <div class="modal wide">
+    <h3 id="infoModalTitle">About Provider Hub</h3>
+    <div class="tab-bar" role="tablist" aria-label="Information sections">
+      <button class="tab-btn active" id="tabButtonReadme" data-tab="readme" role="tab" aria-selected="true" aria-controls="tab-readme" tabindex="0">README</button>
+      <button class="tab-btn" id="tabButtonConfiguration" data-tab="configuration" role="tab" aria-selected="false" aria-controls="tab-configuration" tabindex="-1">Configuration</button>
+      <button class="tab-btn" id="tabButtonMytech" data-tab="mytech" role="tab" aria-selected="false" aria-controls="tab-mytech" tabindex="-1">myTech.Today</button>
+    </div>
+    <div class="tab-panel active" id="tab-readme" role="tabpanel" aria-labelledby="tabButtonReadme">
+      <div class="readme-content" id="readmeContent"></div>
+    </div>
+    <div class="tab-panel" id="tab-configuration" role="tabpanel" aria-labelledby="tabButtonConfiguration" tabindex="0">
+      <div class="configuration-intro">
+        <h2>Table Configuration</h2>
+        <p>Select, order, and rename record fields. Choose the principal display field, default sort, and optional location and distance fields. Changes apply immediately and are stored with the existing layout settings.</p>
+      </div>
+      <div class="configuration-panel" id="configurationPanel"></div>
+    </div>
+    <div class="tab-panel" id="tab-mytech" role="tabpanel" aria-labelledby="tabButtonMytech">
+      <div class="mytech-hero">
+        <h2>myTech.Today</h2>
+        <p class="tagline">Expert IT consulting that turns complexity into clarity.</p>
+      </div>
+      <p>At <strong>myTech.Today</strong> we help organizations design, modernize, and operate reliable technology systems. From architecture and cloud migrations to custom applications, security posture, and team enablement - we deliver outcomes, not just hours.</p>
+      <div class="mytech-grid">
+        <div class="mytech-card">
+          <h4>Architecture & Strategy</h4>
+          <p>Technology roadmaps, system design reviews, and pragmatic modernization plans that align with business goals.</p>
+        </div>
+        <div class="mytech-card">
+          <h4>Cloud & Infrastructure</h4>
+          <p>AWS, Azure, and hybrid environments - migration, cost optimization, reliability, and observability.</p>
+        </div>
+        <div class="mytech-card">
+          <h4>Custom Software</h4>
+          <p>Web applications, integrations, data pipelines, and internal tools built for maintainability and performance.</p>
+        </div>
+        <div class="mytech-card">
+          <h4>Security & Compliance</h4>
+          <p>Practical security assessments, hardening guidance, and support for audit readiness.</p>
+        </div>
+      </div>
+      <p>We bring senior engineering experience, clear communication, and a bias toward simple, durable solutions. Whether you need a short engagement or an ongoing technical partner, we scale to the problem.</p>
+      <div class="mytech-cta">
+        <a class="btn btn-primary" href="https://mytech.today/" target="_blank" rel="noopener">Visit myTech.Today →</a>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="infoClose">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Maps API Key Modal -->
+<div class="modal-backdrop" id="mapsKeyModal" role="dialog" aria-modal="true" aria-labelledby="mapsKeyModalTitle">
+  <div class="modal">
+    <h3 id="mapsKeyModalTitle">Google Maps API Key</h3>
+    <p class="note" style="margin:0 0 10px;">The key is stored only in this browser (localStorage). It is never embedded in the page source. Enable <strong>Maps JavaScript API</strong> and <strong>Geocoding API</strong> for the key.</p>
+    <div id="mapsKeyStatusBox" style="margin-bottom:12px;padding:8px 12px;border-radius:var(--radius-sm);border:2px solid var(--border);background:var(--bg-alt);">
+      <strong>Status:</strong> <span id="mapsKeyStatusDetail">Checking...</span>
+    </div>
+    <label for="mapsKeyInput">API Key</label>
+    <input type="password" id="mapsKeyInput" placeholder="Paste your Google Maps API key" autocomplete="off" spellcheck="false" aria-describedby="mapsKeyHint">
+    <p class="note" id="mapsKeyHint" style="margin:4px 0 0;">Key is masked. Leave blank to keep the current stored key when validating.</p>
+    <div id="mapsKeyValidateMsg" class="note" style="margin-top:8px;min-height:1.2em;" role="status" aria-live="polite"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="mapsKeyCancel" type="button">Close</button>
+      <button class="btn btn-danger" id="mapsKeyClear" type="button">Clear stored key</button>
+      <button class="btn btn-primary" id="mapsKeyValidate" type="button">Validate & Save</button>
+    </div>
+  </div>
+</div>
+
+<script src="provider-hub-v14.js"></script>
+</body>
+</html>
