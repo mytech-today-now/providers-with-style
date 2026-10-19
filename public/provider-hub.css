@@ -1169,7 +1169,20 @@ a { color: var(--link); font-weight: 600; }
   color: var(--muted);
   font-size: calc(1rem * var(--font-scale));
 }
-.row-actions { display: flex; gap: 3px; flex-wrap: wrap; }
+.row-actions {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-wrap: nowrap;
+  width: max-content;
+  white-space: nowrap;
+}
+.row-actions .btn { flex: 0 0 auto; }
+.table-scroll th[data-col="_actions"],
+.table-scroll td[data-col="_actions"] {
+  width: max-content;
+  min-width: max-content;
+}
 .row-actions .btn {
   padding: calc(2px * var(--density)) calc(6px * var(--density));
   font-size: calc(0.68rem * var(--font-scale));
