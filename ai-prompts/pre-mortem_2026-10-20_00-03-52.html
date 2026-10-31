@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en" data-report-style="basic" data-color-mode="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Kyle Rode, myTech.Today">
+<meta name="generator" content="myTech.Today prompt-refined report workflow">
+<meta name="report-repository" content="mytech-today-now/providers-with-style">
+<meta name="report-repository-url" content="https://github.com/mytech-today-now/providers-with-style">
+<meta name="report-repository-author" content="Not identified from available repository evidence">
+<title>Provider Hub data and map correctness prompts, 2026-10-20 00:03:52</title>
+<link rel="stylesheet" href="https://raw.githubusercontent.com/mytech-today-now/prompt-refined/refs/heads/main/css/style.css">
+<script defer src="https://raw.githubusercontent.com/mytech-today-now/prompt-refined/refs/heads/main/js/code.js"></script>
+</head>
+<body>
+<header class="report-header">
+  <p class="report-kicker">Provider Hub refactoring prompt series</p>
+  <h1 class="report-title">Provider Hub: correct dataset rendering and map correspondence</h1>
+  <p>This report turns the user request into 20 independently actionable prompts. Each prompt is post-processed against the requested AI feeder template and stays bounded by repository evidence. Several are testable assumptions because the affected dataset and exact runtime responses were not supplied.</p>
+  <section class="report-meta" aria-label="Report and repository details">
+    <h2>Report details</h2>
+    <dl>
+      <dt>Reviewed repository</dt><dd><a href="https://github.com/mytech-today-now/providers-with-style">mytech-today-now/providers-with-style</a></dd>
+      <dt>Verified remote</dt><dd>origin, https://github.com/mytech-today-now/providers-with-style.git</dd>
+      <dt>Branch and revision</dt><dd>main, b31fa5dd06edea21d204f57290d50565a0d03027</dd>
+      <dt>Repository owner</dt><dd>mytech-today-now, based on the verified origin path</dd>
+      <dt>Project author or maintainer</dt><dd>Not identified from available repository evidence. The recent commit author is not treated as proof of project authorship.</dd>
+      <dt>Attribution evidence</dt><dd>Git remote, README.md, package metadata, and AGENTS.md were inspected. The repository identity is verified; project authorship is not established.</dd>
+      <dt>Report author</dt><dd>Kyle Rode, using myTech.Today's prompt-refined report workflow</dd>
+      <dt>Generated</dt><dd>2026-10-20 00:03:52 America/Chicago</dd>
+      <dt>Prompt template</dt><dd><a href="https://raw.githubusercontent.com/mytech-today-now/prompt-refined/refs/heads/main/ai-feeder-prompt.md">AI feeder prompt template</a></dd>
+      <dt>Output path</dt><dd>ai-prompts/pre-mortem_2026-10-20_00-03-52.html</dd>
+    </dl>
+  </section>
+  <section class="report-attribution" aria-label="Reviewed project attribution">
+    <h2>Reviewed project</h2>
+    <p>Repository: <a href="https://github.com/mytech-today-now/providers-with-style">mytech-today-now/providers-with-style</a>. The remote owner is mytech-today-now. Project authorship or ongoing maintainership is not identified from available repository evidence.</p>
+    <p>Report by Kyle Rode through myTech.Today's prompt-refined workflow. This report author attribution is separate from the reviewed project's authorship.</p>
+  </section>
+  <section class="company-profile" aria-label="myTech.Today company profile">
+    <h2>About myTech.Today</h2>
+    <p>myTech.Today is a Midwestern technology company.</p>
+    <ul>
+      <li>Managed IT and remote support</li>
+      <li>Computer and network support</li>
+      <li>Backup and recovery</li>
+      <li>Web development and software services</li>
+    </ul>
+    <p><a href="https://mytech.today">mytech.today</a> | <a href="mailto:support@mytech.today">support@mytech.today</a></p>
+  </section>
+  <fieldset class="report-preferences" data-report-preferences disabled>
+    <legend>Appearance</legend>
+    <p>Choose a report style and color mode. These choices affect appearance only.</p>
+    <div class="preference-controls">
+      <label for="report-style">Style</label>
+      <select id="report-style" data-report-style-control>
+        <option value="basic" selected>Basic</option>
+        <option value="minimal">Minimal</option>
+        <option value="full">Full &amp; complete style</option>
+      </select>
+      <label for="color-mode">Color mode</label>
+      <select id="color-mode" data-color-mode-control>
+        <option value="system" selected>System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </div>
+  </fieldset>
+  <p class="preferences-status" data-preferences-status role="status" aria-live="polite">JavaScript has not initialized appearance controls. If this message remains, check that the shared script loaded and completed initialization.</p>
+  <p class="issue-progress-storage-status" data-issue-progress-status role="status" aria-live="polite">JavaScript has not initialized issue progress controls. If this message remains, check that the shared script loaded and completed initialization.</p>
+  <p><button type="button" id="copy-report-json" class="json-copy-control" data-json-report disabled>Copy entire report as JSON</button> <span id="report-json-status" role="status" aria-live="polite"></span></p>
+  <p class="copy-help">The shared script adds issue and implementation-prompt copy controls. JSON controls are enabled when their local handler is ready. If clipboard access is unavailable, the visible report text remains selectable. Issue progress and appearance preferences are separate from report content; only those choices are intended to persist.</p>
+  <noscript><p>JavaScript is unavailable. The report uses Basic styling and follows the system color preference when the shared stylesheet loads. Appearance controls, issue progress, copy controls, and JSON copying require JavaScript. All report text and prompts remain available for reading and manual selection.</p></noscript>
+</header>
+<main class="report-main">
+  <section class="report-summary">
+    <h2>Executive summary</h2>
+    <p>Original request: provider datasets must populate the table with correct content, map numbers must match the table item numbers, and map items must be placed at their correct locations. The supplied console also reports three displayData errors, successful mode and style changes, a Google Maps loading advisory, and ERR_BLOCKED_BY_CLIENT requests.</p>
+    <p>The local source confirms several relevant behaviors: displayData catches errors after updating state; safeLogArgs replaces all object values, including Error objects, with [details omitted]; the table renderer stores source indexes but does not add an ordinal column; sortTable reorders rows without refreshing markers; and map positions are resolved from a single configured field through address geocoding. The exact production assets, affected dataset, expected numbers, source locations, and geocoder responses remain unknown.</p>
+    <p>The logs do not prove one root cause. The post-processed prompts require a future implementation agent to identify the actual page assets, reproduce the data flow, and distinguish first-party failures from browser-blocked requests and nonfatal Maps advisories before making changes.</p>
+  </section>
+  <section class="scope-notes">
+    <h2>Scope, method, and limitations</h2>
+    <ul>
+      <li>Source inspection covered the current working tree, public/provider-hub.html, public/provider-hub.js, src/routes/index.tsx, README.md, package test candidates, and repository instructions.</li>
+      <li>At inspection time the worktree already had changes in .vercel/output/nitro.json, public/provider-hub.css, and public/provider-hub.html and public/provider-hub.js, plus an untracked backup under public/nppBackup. Those files were not edited. The new prompt report is the only file created for this request.</li>
+      <li>The current HTML references remote mytech.today CSS and JavaScript while the repository has local public assets. The live browser response and deployment routing were not verified, so local code may not be the exact version behind the supplied log.</li>
+      <li>The source supports JSON arrays of objects and objects with an items array. The bundled Austin demo is explicitly fictional and uses approximate landmarks; it is not ground truth for real provider locations.</li>
+      <li>No affected provider dataset, expected table values, stable item-number definition, or authoritative coordinates were supplied. Prompts require agents to resolve those from repository data or ask only a blocking question.</li>
+      <li>The supplied console URL contained a Maps key. The key value is intentionally omitted from this file. The console style and mode success messages are successful transitions, not table errors. The Maps loading warning is advisory until evidence shows a functional impact. ERR_BLOCKED_BY_CLIENT is not treated as a product defect without the blocked request URL, initiator, and dependency evidence.</li>
+      <li>The ai-feeder-prompt template was fetched and used as the prompt transformation contract. The exact external stylesheet and shared JavaScript references requested for this report are included, but their live availability and browser initialization were not verified because the network fetch was unavailable.</li>
+      <li>This is a prompt artifact, not an application fix or production verification.</li>
+    </ul>
+  </section>
+  <section class="report-scope">
+    <h2>Input resolution</h2>
+    <p>The single user request was decomposed into 20 distinct work prompts for diagnosis, correction, and regression coverage. The 15 Core items address the direct table and map correctness paths. The 5 Additional items cover related diagnostics, accessibility, performance, and integrated verification. Items marked as testable assumptions must be confirmed before changing code.</p>
+  </section>
+  <nav class="issue-toc" aria-label="Table of contents">
+    <h2>Prompt table of contents</h2>
+    <ol><li><a class="issue-toc-link" href="#issue-issue-">. Reproduce the reported failure against the page and assets users actually load <span class="issue-toc-status" data-issue-progress-indicator="issue-01" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Make displayData failures diagnosable without exposing record contents <span class="issue-toc-status" data-issue-progress-indicator="issue-02" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Verify and normalize the supported dataset contract before rendering <span class="issue-toc-status" data-issue-progress-indicator="issue-03" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Render nested and typed provider values without lossy coercion <span class="issue-toc-status" data-issue-progress-indicator="issue-04" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Keep table rendering coherent when one record or renderer fails <span class="issue-toc-status" data-issue-progress-indicator="issue-05" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Define a canonical row identity and visible item-number contract <span class="issue-toc-status" data-issue-progress-indicator="issue-06" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Refresh map labels and marker positions after table sorting <span class="issue-toc-status" data-issue-progress-indicator="issue-07" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Keep markers aligned with the currently visible search results <span class="issue-toc-status" data-issue-progress-indicator="issue-08" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Preserve table rows when individual locations cannot be mapped <span class="issue-toc-status" data-issue-progress-indicator="issue-09" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Resolve the configured location field against each dataset safely <span class="issue-toc-status" data-issue-progress-indicator="issue-10" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Use explicit coordinates when the dataset provides them <span class="issue-toc-status" data-issue-progress-indicator="issue-11" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Reject ambiguous geocoding results instead of choosing the first result blindly <span class="issue-toc-status" data-issue-progress-indicator="issue-12" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Keep marker click and hover actions attached to the correct provider row <span class="issue-toc-status" data-issue-progress-indicator="issue-13" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Prevent stale asynchronous geocoding results from restoring obsolete markers <span class="issue-toc-status" data-issue-progress-indicator="issue-14" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Keep map empty and loading states distinct from an empty provider dataset <span class="issue-toc-status" data-issue-progress-indicator="issue-15" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Prevent repeated search input from overloading geocoding <span class="issue-toc-status" data-issue-progress-indicator="issue-16" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Separate browser-blocked requests from first-party Provider Hub failures <span class="issue-toc-status" data-issue-progress-indicator="issue-17" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-17">17. Make marker numbers and map interaction accessible alongside the table <span class="issue-toc-status" data-issue-progress-indicator="issue-18" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-">. Keep table counts and map counts truthful when some records are unmappable <span class="issue-toc-status" data-issue-progress-indicator="issue-19" data-progress="incomplete">Incomplete</span></a></li>
+<li><a class="issue-toc-link" href="#issue-issue-18">18. Use a verified test fixture and an end-to-end table-map parity regression suite <span class="issue-toc-status" data-issue-progress-indicator="issue-20" data-progress="incomplete">Incomplete</span></a></li></ol>
+  </nav>
+  <section class="risk-register">
+    <h2>Prioritized prompt register</h2>
+    <div class="risk-table-wrap" role="region" aria-label="Risk register" tabindex="0">
+      <table class="risk-table">
+        <thead><tr><th scope="col">No.</th><th scope="col">Kind</th><th scope="col">Issue</th><th scope="col">Priority</th><th scope="col">Severity</th><th scope="col">Likelihood</th><th scope="col">Impacted area</th></tr></thead>
+        <tbody><tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Reproduce the reported failure against the page and assets users actually load</td><td>P1</td><td>Severity 2 (High)</td><td>Likely, based on the user report; not reproduced in this turn.</td><td>Runtime asset selection, provider data flow, table and map correctness.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Make displayData failures diagnosable without exposing record contents</td><td>P1</td><td>Severity 2 (High)</td><td>Confirmed diagnostic limitation in source; the underlying exception is unknown.</td><td>Error observability, table rendering, supportability, privacy.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Verify and normalize the supported dataset contract before rendering</td><td>P1</td><td>Severity 2 (High)</td><td>Testable assumption until the affected dataset is available.</td><td>Import correctness, schema compatibility, record completeness.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Render nested and typed provider values without lossy coercion</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Testable assumption because the affected record values were not supplied.</td><td>Table content fidelity, custom fields, import compatibility.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Keep table rendering coherent when one record or renderer fails</td><td>P1</td><td>Severity 2 (High)</td><td>Likely given the repeated displayData error, cause unconfirmed.</td><td>Reliability, partial rendering, data integrity.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Define a canonical row identity and visible item-number contract</td><td>P1</td><td>Severity 2 (High)</td><td>Confirmed mismatch risk; the user-facing numbering convention is unspecified.</td><td>Table-map correspondence, row identity, usability.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Refresh map labels and marker positions after table sorting</td><td>P1</td><td>Severity 2 (High)</td><td>Confirmed from the local code path.</td><td>Map-table synchronization, sorting, visual correctness.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Keep markers aligned with the currently visible search results</td><td>P1</td><td>Severity 2 (High)</td><td>Likely, with concurrency and numbering behavior requiring reproduction.</td><td>Search, table state, map synchronization.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Preserve table rows when individual locations cannot be mapped</td><td>P1</td><td>Severity 2 (High)</td><td>Likely for real datasets with partial address coverage.</td><td>Data completeness, map fallback, geocoding failures.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Resolve the configured location field against each dataset safely</td><td>P1</td><td>Severity 2 (High)</td><td>Testable assumption until the affected data keys are inspected.</td><td>Dataset configuration, location mapping, persistence.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Use explicit coordinates when the dataset provides them</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Testable assumption; no affected dataset schema was supplied.</td><td>Geospatial accuracy, data contract, map positioning.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Reject ambiguous geocoding results instead of choosing the first result blindly</td><td>P1</td><td>Severity 2 (High)</td><td>Possible; actual addresses and Google response details were not provided.</td><td>Map accuracy, third-party integration, user trust.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Keep marker click and hover actions attached to the correct provider row</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Testable assumption, especially during rapid data or view changes.</td><td>Interaction correctness, row identity, map-table linkage.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Prevent stale asynchronous geocoding results from restoring obsolete markers</td><td>P1</td><td>Severity 2 (High)</td><td>Likely under fast search or dataset switching.</td><td>Async state, marker lifecycle, data correctness.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Core</td><td>Keep map empty and loading states distinct from an empty provider dataset</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Likely when data is present but no address is geocodable.</td><td>Loading and empty states, user trust, error recovery.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Additional</td><td>Prevent repeated search input from overloading geocoding</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Possible for larger datasets or slow typing.</td><td>Performance, third-party quota, responsive interaction.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Additional</td><td>Separate browser-blocked requests from first-party Provider Hub failures</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Possible; blocked URLs are not fully identified in the supplied text.</td><td>Diagnostics, browser compatibility, network behavior.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-17">17</a></th><td>Additional</td><td>Make marker numbers and map interaction accessible alongside the table</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Likely accessibility gap for users who cannot use a visual map.</td><td>Accessibility, map-table navigation, keyboard access.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-"></a></th><td>Additional</td><td>Keep table counts and map counts truthful when some records are unmappable</td><td>P2</td><td>Severity 3 (Moderate)</td><td>Likely for mixed-quality provider data.</td><td>Data completeness, summary counts, error communication.</td></tr>
+<tr><th scope="row"><a href="#issue-issue-18">18</a></th><td>Additional</td><td>Use a verified test fixture and an end-to-end table-map parity regression suite</td><td>P1</td><td>Severity 2 (High)</td><td>Likely coverage gap; existing suites require targeted inspection.</td><td>Regression coverage, release confidence, integration correctness.</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+  <section class="issue-list" aria-label="Post-processed implementation prompts">
+    <article class="issue" id="issue-01" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 01 / 20</p><h2 class="issue-title">Reproduce the reported failure against the page and assets users actually load</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Resolve runtime provenance, reproduce table and map behavior, then fix the confirmed cause.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely, based on the user report; not reproduced in this turn.</dd>
+    <dt>Impacted area</dt><dd>Runtime asset selection, provider data flow, table and map correctness.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The user reports repeated displayData errors, incorrect or absent table content, and marker numbers or locations that do not correspond to provider rows. The logs alone do not establish the root cause. The checked-in public/provider-hub.html currently references CSS and JavaScript on mytech.today, while the repository also contains public/provider-hub.css and public/provider-hub.js. The root route embeds that HTML in an iframe. The page loaded by the user may therefore differ from the checked-in source.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.html:7 and :446 reference https://mytech.today/tools/m/provider/provider-hub.css and provider-hub.js. src/routes/index.tsx embeds /provider-hub.html. public/provider-hub.js:1194-1222 implements displayData. The user-provided console includes three displayData errors, one Google Maps loading advisory, and ERR_BLOCKED_BY_CLIENT messages. The exact failed request, stack, dataset, and runtime asset response were not provided. The Maps key in the pasted URL is intentionally omitted from this report.</p></section>
+  <section><h3>Why this matters</h3><p>Editing a local bundle that the reported page does not load could leave the live defect untouched. Guessing from a redacted error can also produce a cosmetic fix that leaves incorrect records or pins in place.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend reliability engineer specializing in data-heavy browser applications and Google Maps integrations. Work in the current repository. Resolve the project root, read AGENTS.md and any applicable nested instructions, inspect the current worktree before editing, and preserve all existing staged, unstaged, and untracked work. The goal is to correct the reported Provider Hub behavior: provider datasets must render the correct records and values in the table, map labels must identify the corresponding table items, and each marker must use the correct location.
+
+Start by tracing the actual page entry point and asset URLs from src/routes/index.tsx through public/provider-hub.html. The current HTML references the CSS and JavaScript on mytech.today, while public/provider-hub.css and public/provider-hub.js also exist. Determine which exact HTML, CSS, and JavaScript responses produced the user-reported console output. Do not assume the local bundle is the runtime bundle. Do not switch asset hosts or change deployment routing unless repository evidence shows that the current routing is wrong and the change is necessary.
+
+Reproduce the problem with a representative dataset already available in the repository or a synthetic fixture that follows the supported dataset contract. Do not invent provider fields or real addresses. Capture the dataset record count, expected field values, rendered table rows, marker labels, marker positions, sort/filter state, and the precise first-party error. The reported console text is evidence to investigate, not proof of one root cause. The Maps loading advisory and ERR_BLOCKED_BY_CLIENT requests are not automatically the cause of the data defect. The browser key shown in the supplied log is sensitive input: do not copy it into code, fixtures, logs, this report, or test output.
+
+Trace the complete path through validateImportPayload and normalizeImportPayload, IndexedDB loading, displayData, renderRows, table sorting and search, updateMapMarkers, geocodeAddress, and marker click/hover handlers. Explain the verified cause before changing behavior. Implement the smallest coherent fix that satisfies the three user-visible requirements. Preserve supported import formats, provider field values, edits, sorting, search, map fallback, and existing layout preferences. Do not add a server, new data source, broad schema migration, unrelated redesign, or dependency unless repository evidence makes it necessary. If actual production data or a ground-truth location source is unavailable, make that evidence gap explicit and use a deterministic fixture for code behavior without claiming real-world geospatial accuracy.
+
+Add focused positive, negative, edge, and regression tests. Include a dataset with multiple rows, custom fields, missing locations, a sort, a search, and known coordinates or unambiguous fixture addresses. Verify record counts and representative cell values against the source records; verify each displayed marker&#39;s label, position, and table-row target; verify that invalid data and geocoding failures do not corrupt a previously rendered table. Run the relevant existing provider tests, node --check public/provider-hub.js, npm run typecheck, npm test, and npm run build when the repository scripts and environment support them. Use only commands present in package.json. Record actual command results and do not call an unavailable check a pass.
+
+Acceptance criteria: the page users actually load contains the fix; every accepted dataset row displays the correct values; each marker maps to the intended visible table item and correct fixture location; no uncaught first-party runtime error occurs during the tested workflow; and failures remain understandable without exposing credentials or record contents. Finish with the verified root cause, files changed, test matrix, command outcomes, unresolved location evidence, and any remaining assumptions. Do not expose private chain-of-thought. Do not use em-dashes in code, tests, documentation, or the final report.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: trace the route and assert which HTML and asset URLs are loaded in the supported local and production-like configuration.</li><li>End-to-end: load a valid multi-record fixture and compare row count, selected cell values, marker labels, marker positions, and row targets.</li><li>Negative: malformed dataset and rejected geocoding response preserve the prior table and produce a visible, actionable failure.</li><li>Regression: reproduce the reported displayData and table/map mismatch before applying the fix, when the available runtime makes reproduction possible.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>The fix applies to the exact runtime assets used by the affected page.</li><li>The fixture table matches the source records and the map markers match the fixture locations and corresponding table items.</li><li>No root cause is claimed without reproducible or code-traced evidence; unknown production data remains explicitly unverified.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that the HTML references remote assets and that displayData catches errors; low about the actual reported runtime cause until the served bundle and dataset are reproduced.</p></section>
+  <div class="issue-actions">
+    <label for="progress-01">Progress for issue 01</label>
+    <select id="progress-01" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-01" aria-label="Copy Issue 01 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-01" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-02" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 02 / 20</p><h2 class="issue-title">Make displayData failures diagnosable without exposing record contents</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Report a safe error name, code, and message for display failures.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Confirmed diagnostic limitation in source; the underlying exception is unknown.</dd>
+    <dt>Impacted area</dt><dd>Error observability, table rendering, supportability, privacy.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The user sees three console entries ending in [details omitted]. The logger redacts every object argument, including Error objects, so it suppresses the exception name and message needed to identify the display failure.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:17-35 maps every object argument to [details omitted]; logError forwards those arguments to console.error. public/provider-hub.js:1222 catches displayData errors and passes the Error object to logError. The user reports three such logs.</p></section>
+  <section><h3>Why this matters</h3><p>A display error can leave partially updated state and cannot be safely corrected from the current console output. Dumping whole imported records would create a privacy problem, so diagnostics need a narrow, explicit safe shape.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior JavaScript diagnostics and privacy engineer. Resolve the project root and read repository instructions before editing. Inspect the dirty worktree first and preserve unrelated changes. Address the confirmed diagnostic gap in public/provider-hub.js: safeLogArgs, logError, and the catch in displayData. The reported console contains repeated displayData entries with [details omitted], and the current sanitizer redacts every object, including Error instances.
+
+Implement a narrow error formatter that preserves useful non-sensitive fields such as error name, a bounded message, and a stable error code when present. Do not serialize arbitrary objects, imported records, addresses, contact fields, API keys, source URLs with query parameters, stacks containing sensitive data, or full response bodies. Keep debug-only data separate from normal error reporting. Ensure the formatter handles strings, null values, native Error objects, and plain objects without throwing. Sanitize control characters and bound message length. Do not change the user-visible exception handling or swallow errors differently as a shortcut.
+
+Add tests proving that known safe error fields remain visible, imported record values and credential-bearing strings are not logged, an Error without a message is handled, a plain object cannot crash logging, and the existing display flow still catches errors. Run the focused provider-hub tests, node --check public/provider-hub.js, and relevant package checks if available. Report which error details were reproduced and which remained unavailable. Acceptance requires a developer to see enough redacted detail to identify the failing operation without any dataset contents or Maps credential appearing in logs. Do not use em-dashes in code, documentation, tests, or the final report.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: native Error, missing message, string, null, plain object, long message, and control characters.</li><li>Security regression: a fixture containing a fake key, address, phone, and record payload never appears in console output.</li><li>Integration: a thrown render exception produces a safe diagnostic and leaves the application able to render a later valid dataset.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>A displayData failure includes a safe operation name and bounded error detail.</li><li>No arbitrary record, address, key, or response object is logged.</li><li>The logger itself never throws while formatting malformed error values.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the redaction behavior because it is directly visible in the current source; the actual exception behind the user log remains unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-02">Progress for issue 02</label>
+    <select id="progress-02" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-02" aria-label="Copy Issue 02 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-02" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-03" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 03 / 20</p><h2 class="issue-title">Verify and normalize the supported dataset contract before rendering</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Map each accepted source shape to the canonical dataset model without losing records.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Testable assumption until the affected dataset is available.</dd>
+    <dt>Impacted area</dt><dd>Import correctness, schema compatibility, record completeness.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The repository accepts a JSON array or an object containing items, but the affected provider dataset was not supplied. A source with a different nesting or field convention could be rejected or normalized incorrectly even though its JSON is valid.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1424-1440 validates an array or raw.items and requires plain-object records. public/provider-hub.js:1443-1467 normalizes metadata and retains items. public/provider-hub.js:4224 documents these formats. No real provider dataset or expected output was included in the request.</p></section>
+  <section><h3>Why this matters</h3><p>A correct renderer cannot display fields that were discarded or never mapped. Schema guesses can silently mislabel providers, drop metadata, or make incorrect table rows look plausible.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend data-contract engineer. Work in this repository, resolve its root, read applicable instructions, and inspect the current worktree before making changes. Address only dataset contract compatibility for the reported table population defect. Begin with validateImportPayload and normalizeImportPayload in public/provider-hub.js, their call sites for local and remote imports, IndexedDB load paths, and existing provider-hub tests. The documented contract accepts a JSON array of object records or an object with an items array. The user did not provide the failing dataset, so treat any proposed alias or alternate nesting as a testable assumption until repository fixtures or the actual source establish it.
+
+Trace a representative source from parse through validation, persistence, loadDatasetById, displayData, and renderRows. Compare input keys and values with the normalized object and rendered cells. Preserve all supported record keys, scalar values, dataset metadata, and empty dataset behavior. If the actual source uses a documented-but-unhandled wrapper or field alias, implement one narrow adapter at the import boundary, preserve unknown provider fields, and reject ambiguous shapes with a field-specific message. Do not guess between multiple arrays, silently choose a nested object, rename provider fields without evidence, or rewrite stored datasets destructively. If old IndexedDB rows need normalization, keep the change reversible or display-time only unless a migration is proven necessary.
+
+Add fixtures for each supported source shape, an empty array, malformed JSON, non-object items, unknown scalar keys, missing optional metadata, and a plausible incompatible wrapper. Assert exact record count and value preservation before and after saving and reloading. Run the focused import and rendering tests plus relevant static checks and package scripts. Report the exact source contract verified, any unsupported shape, and the evidence needed from the real dataset if still unknown. Acceptance requires valid supported sources to produce the same records and values after load, while unsupported sources fail visibly without replacing existing data. Do not use em-dashes in any written output.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: array payload, object-with-items payload, empty items, malformed input, and non-object record.</li><li>Integration: import, persist, reload, and compare record counts and every fixture field.</li><li>Negative: unsupported wrapper produces a clear error and leaves prior IndexedDB data unchanged.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Only repository- or source-backed formats are accepted.</li><li>Valid record values and counts survive import, persistence, reload, and rendering.</li><li>Unsupported schemas fail explicitly instead of producing a misleading partial table.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the current schema contract; the real failing dataset shape is unavailable and must be confirmed.</p></section>
+  <div class="issue-actions">
+    <label for="progress-03">Progress for issue 03</label>
+    <select id="progress-03" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-03" aria-label="Copy Issue 03 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-03" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-04" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 04 / 20</p><h2 class="issue-title">Render nested and typed provider values without lossy coercion</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Define display behavior for JSON value types while preserving their data types.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Testable assumption because the affected record values were not supplied.</dd>
+    <dt>Impacted area</dt><dd>Table content fidelity, custom fields, import compatibility.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Dynamic fields are rendered by assigning a record value directly to textContent. Objects can appear as [object Object], and arrays can become comma-joined text, which may not represent the imported value correctly.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1000-1059 builds dynamic table cells; the general branch at :1046-1048 assigns val directly to span.textContent. validateImportPayload checks that each item is a plain object but does not restrict each field to a scalar at :1432-1440. Whether affected provider records contain nested values is unknown.</p></section>
+  <section><h3>Why this matters</h3><p>A row can be present while its content is materially wrong, making a successful table render misleading.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend data presentation engineer. Resolve the repository root and read its instructions. Inspect the current worktree and preserve unrelated changes. Focus on renderRows in public/provider-hub.js and the JSON value shapes accepted by validateImportPayload. The renderer uses textContent for general dynamic values, while import validation permits nested values. The user did not provide the affected record, so first check repository fixtures and reproduce with representative scalar, array, object, null, boolean, and numeric values.
+
+Choose a deterministic, safe representation for each supported JSON type. Preserve zero, false, and empty strings distinctly where product behavior requires it. Render nested objects as bounded readable JSON or a structured detail affordance consistent with existing UI; never use innerHTML for imported values. If the product contract only supports scalar table cells, validate that contract at import and preserve the original payload or reject it with a precise error rather than silently stringifying it. Keep unknown scalar provider fields and current copy behavior. Do not build a general schema engine or add a dependency.
+
+Add focused renderer tests for each value type and malicious HTML-looking strings. Assert that text remains text, nested content is not reduced to [object Object], and saved record types remain unchanged after editing and reloading. Include a realistic row with custom fields. Run relevant provider tests and syntax/type checks available in the project. Acceptance requires deterministic display, correct preservation of value types, no markup execution, and no regression to ordinary strings or numbers. Mark the real dataset impact unverified if its values remain unavailable. Do not use em-dashes in code or written output.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: render strings, number zero, false, null, arrays, nested objects, Unicode, and HTML-looking text.</li><li>Regression: ordinary provider fields and copy buttons retain their existing behavior.</li><li>Security: imported markup is displayed as text and never inserted as executable HTML.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Every supported JSON value has a documented and deterministic table representation.</li><li>Displayed values are not silently converted to [object Object] or ambiguous coercions.</li><li>The original stored data types remain unchanged.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that nested values reach the general renderer if accepted; whether they occur in the user&#39;s dataset is unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-04">Progress for issue 04</label>
+    <select id="progress-04" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-04" aria-label="Copy Issue 04 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-04" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-05" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 05 / 20</p><h2 class="issue-title">Keep table rendering coherent when one record or renderer fails</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Validate render prerequisites and expose a recoverable dataset-level error state.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely given the repeated displayData error, cause unconfirmed.</dd>
+    <dt>Impacted area</dt><dd>Reliability, partial rendering, data integrity.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>displayData assigns currentData before building columns, rows, configuration, and saved layout. A caught exception can leave a partially updated title, table, controls, or map while the user sees no explicit recovery state.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1194-1222 sets currentData and updates the page before catching exceptions. applySavedLayout is asynchronous at :1225 onward and rerenders rows later. The user reports three displayData exceptions.</p></section>
+  <section><h3>Why this matters</h3><p>A partial render can make stale or incomplete data look authoritative, and a later operation may act on state that does not match the visible table.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend reliability engineer. Resolve the current project root and read its instructions. Inspect the worktree before editing. Address displayData consistency in public/provider-hub.js:1194-1222 and applySavedLayout. Reproduce a failure using a controlled fixture or an injected test error. Determine which UI and model fields have changed when the exception is caught. The user-reported console entries are not sufficient evidence to claim a particular throw site.
+
+Implement a small coherent success/error lifecycle. Validate the dataset object and items before changing currentData. Either render into a safe intermediate structure or ensure a failed attempt restores the last known-good dataset and visible rows. Provide an accessible message that identifies the failed operation and a retry or dataset reselection path, without displaying record contents. Prevent an older asynchronous layout result from overwriting a newer dataset. Preserve current successful rendering, empty datasets, sorting, filtering, and edits. Do not hide the error, clear valid user data, or treat a partial render as success.
+
+Add tests where column construction, row rendering, and saved-layout loading fail independently. Assert the prior valid view remains coherent, the failure is announced, and selecting a valid dataset recovers. Run focused tests and supported project checks. Acceptance requires no mixed old/new table state after a failure, no uncaught first-party exception in the tested flow, and exact, truthful error status. Include rollback guidance if an IndexedDB or migration change is considered; prefer no data migration. Report the reproduced throw site and any unverified external runtime behavior. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: inject failures at validation, column construction, row rendering, and saved-layout loading.</li><li>Regression: after each injected error, select a valid dataset and confirm a complete render.</li><li>Negative: a malformed replacement dataset never silently replaces the last known-good view.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>A failed render cannot leave the title, row set, and currentData referring to different datasets.</li><li>The user receives a clear accessible recovery action.</li><li>A subsequent valid load succeeds without reload or data loss.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that displayData catches errors after partial mutation; exact observed partial state is unverified.</p></section>
+  <div class="issue-actions">
+    <label for="progress-05">Progress for issue 05</label>
+    <select id="progress-05" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-05" aria-label="Copy Issue 05 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-05" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-06" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 06 / 20</p><h2 class="issue-title">Define a canonical row identity and visible item-number contract</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Use one row identity for table numbers, map labels, and marker targets.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Confirmed mismatch risk; the user-facing numbering convention is unspecified.</dd>
+    <dt>Impacted area</dt><dd>Table-map correspondence, row identity, usability.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The current renderer assigns data-idx to rows but does not create a visible ordinal column. Map labels use the input-array position. The request requires map numbers to match table item numbers, but it does not specify whether those numbers are sequential display ordinals or a provider-supplied ID.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1014-1017 sets tr.dataset.idx and uses current header columns; there is no generated ordinal cell in renderRows. public/provider-hub.js:4148-4155 labels markers with i + 1 and separately searches currentData.items by object identity.</p></section>
+  <section><h3>Why this matters</h3><p>Without a canonical definition, a marker can carry a number that has no visible counterpart or can change meaning after filtering and sorting.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend data-modeling engineer. Resolve the project root and read AGENTS.md. Preserve all existing work. Inspect public/provider-hub.html table headers, createDefaultTableConfig, renderRows, sorting, search, marker creation, row editing, and available dataset fixtures. The current local renderer stores an internal source index but does not create an ordinal table cell, while map labels are generated from array position. The user requires map numbers to match table item numbers but did not define whether the table number is a display ordinal or a provider-owned identifier.
+
+Use repository data and current product behavior to establish the intended contract. If records have a stable provider ID, preserve it as data identity and decide separately whether the visible label is a display ordinal. If no stable display number exists, add the smallest accessible ordinal column that matches current visible row order. Keep internal source identity separate from presentation numbering so sorting or filtering cannot redirect edits to another record. Do not overwrite source IDs or use array position as durable identity. Preserve dynamic columns and user column layout.
+
+Add tests for initial order, sorting in both directions, search, filtered results, duplicate provider IDs, missing IDs, row edits, and dataset reload. Assert table labels, marker labels, and clicked row identity all follow the chosen contract. Run relevant tests and browser checks if available. Acceptance requires every marker number to have exactly one visible table counterpart under the same view state, with record identity stable through sort and filter. If product policy cannot be inferred, state the single blocking question rather than inventing a number source. Do not use em-dashes in code or written output.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: establish the relationship among source index, stable provider identifier, and display ordinal.</li><li>Integration: verify ordinal display and marker identity after sort, filter, edit, and reload.</li><li>Accessibility: ensure the ordinal heading is semantic and the number is available to assistive technology.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>The table has a documented, visible item-number meaning.</li><li>Map labels use the corresponding table number, not an unrelated array index.</li><li>Internal edit/delete identity remains stable when presentation order changes.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the source behavior; the intended numbering convention must be established from repository data or one product clarification.</p></section>
+  <div class="issue-actions">
+    <label for="progress-06">Progress for issue 06</label>
+    <select id="progress-06" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-06" aria-label="Copy Issue 06 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-06" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-07" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 07 / 20</p><h2 class="issue-title">Refresh map labels and marker positions after table sorting</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Rebuild or relabel markers whenever the displayed row order changes.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Confirmed from the local code path.</dd>
+    <dt>Impacted area</dt><dd>Map-table synchronization, sorting, visual correctness.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Sorting reorders table rows in the DOM, but sortTable does not refresh map markers. Existing markers therefore retain labels and positions based on the prior item order.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1173-1190 implements sortTable by sorting and appending rows. updateMapMarkers is called from renderRows at :1081 and search at :3344, but not from sortTable. updateMapMarkers labels each input item with i + 1 at :4151.</p></section>
+  <section><h3>Why this matters</h3><p>After a user sorts, marker number-to-row correspondence can become false even when every address is correct.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend engineer. Resolve the repository root, read applicable instructions, and preserve the existing worktree. Fix map synchronization after table sorting. Inspect sortTable, header sort handlers, renderRows, search, updateMapMarkers, and the row identity model in public/provider-hub.js. The local code sorts table rows by moving DOM elements but does not call updateMapMarkers from sortTable. Markers are numbered by the order of the items passed to updateMapMarkers.
+
+Implement a single source of truth for the currently displayed row sequence. When sorting changes that sequence, update marker labels and positions or update markers from the current rendered row references. Keep marker click and hover targets tied to the same stable record as before. Avoid triggering duplicate geocoding for a pure sort if cached coordinates are available. Preserve sort direction, keyboard-accessible header controls, search state, and current map viewport where possible. Do not rewrite sorting or create a second table model without necessity.
+
+Add regression tests with at least four rows whose alphabetical and numeric orders differ and known distinct locations. Sort ascending and descending and assert every visible row number has the same marker title, label, location, and click target. Include sort after a search and after saved layout restoration. Run the focused provider tests, syntax check, and browser test if supported. Acceptance requires marker-to-row associations to match immediately after each sort, with no stale marker remaining. Report actual geocoder mocking or browser evidence and do not claim real-world address accuracy from fixture tests. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Regression: sort ascending and descending with distinct provider names and locations.</li><li>Integration: sort while a search filter is active and after restoring saved layout.</li><li>Manual/browser: click each marker and confirm the corresponding sorted row is highlighted.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Sorting updates marker labels and row associations in the same user action.</li><li>No marker keeps an obsolete number after repeated sort toggles.</li><li>Search and saved layout behavior remain intact.</li></ul></section>
+  <section><h3>Confidence</h3><p>High. The table sort path has no map refresh call in the inspected source.</p></section>
+  <div class="issue-actions">
+    <label for="progress-07">Progress for issue 07</label>
+    <select id="progress-07" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-07" aria-label="Copy Issue 07 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-07" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-08" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 08 / 20</p><h2 class="issue-title">Keep markers aligned with the currently visible search results</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Derive map contents and labels from the same filtered row collection as the table.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely, with concurrency and numbering behavior requiring reproduction.</dd>
+    <dt>Impacted area</dt><dd>Search, table state, map synchronization.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Search collects visible row objects from the current table DOM and calls updateMapMarkers. This is a separate path from initial rendering and sorting, so its ordering and identity behavior must be consistent with the selected row-number contract.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:3333-3345 hides rows, collects currentData.items using each row&#39;s data-idx, and updates map markers. updateMapMarkers numbers the passed array by i + 1 at :4142-4155. The user reports map numbers that do not match table items.</p></section>
+  <section><h3>Why this matters</h3><p>A map that continues to show all records or numbers filtered rows differently can mislead users about which provider a marker represents.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend engineer focused on synchronized search views. Read repository instructions and inspect the current worktree. Trace the search input handler, table sort state, each row&#39;s data-idx, currentData, updateMapMarkers, and marker click/hover callbacks. The current search handler derives visibleItems from the table DOM, then passes those objects to map rendering. Confirm the actual ordering and behavior using the supported row-number contract before changing code.
+
+Make the table and map consume the same current visible-record sequence. Clearing search must restore all rows and all corresponding markers. A query with no matches must show no markers and must not fall back to the full dataset. A query matching rows with missing locations must keep the visible table rows and communicate which have no marker. Keep marker-to-record identity stable through sort and filter; do not use a filtered-array index for edit/delete operations. Avoid rerendering the table for each keystroke unless current architecture requires it.
+
+Add tests for no query, one match, multiple matches, no matches, case-insensitive search, sorted search results, missing location in a result, and rapid query changes. Assert row visibility, marker count, marker label, and marker target. Run focused tests and browser checks when available. Acceptance requires the map to represent exactly the visible rows that have usable locations, with labels following the established table-number rule and no hidden row being highlighted. Report geocoding or network behavior that was mocked. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit/integration: zero, one, multiple, and no-match search result sets.</li><li>Regression: search while sorted and clear search after a missing-location row.</li><li>Browser: rapid typing does not leave stale markers or highlight a hidden row.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>The map shows only locations belonging to currently visible result rows.</li><li>Clearing search restores the full matching map state.</li><li>No-match state contains no stale marker.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. The filtering path is visible, but the reported mismatch has not been reproduced against the actual loaded bundle.</p></section>
+  <div class="issue-actions">
+    <label for="progress-08">Progress for issue 08</label>
+    <select id="progress-08" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-08" aria-label="Copy Issue 08 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-08" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-09" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 09 / 20</p><h2 class="issue-title">Preserve table rows when individual locations cannot be mapped</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Separate record rendering from geocoding success and represent unmappable rows accurately.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely for real datasets with partial address coverage.</dd>
+    <dt>Impacted area</dt><dd>Data completeness, map fallback, geocoding failures.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>geocodeAddress returns null for absent addresses or unsuccessful geocoder responses, and updateMapMarkers skips that item. The table should still retain the provider record, but there is no per-row map status in the inspected marker flow.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4110-4130 resolves missing or failed addresses to null. public/provider-hub.js:4142-4147 returns without creating a marker when address or geocode result is absent. The table renderer is separate at :1000-1082.</p></section>
+  <section><h3>Why this matters</h3><p>A missing marker can be mistaken for a missing provider record or a wrong table/map count, and users have no way to distinguish an invalid address from a transient geocoding failure.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend data-integrity engineer. Resolve the project root, read instructions, and preserve existing changes. Inspect renderRows, geocodeAddress, updateMapMarkers, the location field configuration, and map fallback markup. The current map path skips items without an address or successful geocoder result. Confirm whether the affected dataset contains such rows; do not infer actual coverage from the fictional demo dataset.
+
+Keep table population independent of geocoding success. Add an explicit, accessible per-row or dataset summary for locations that cannot be mapped, using a safe category such as missing location, invalid location, or geocoder unavailable. Do not remove, reorder, or alter provider records because mapping failed. Do not call a row correctly located unless a coordinate source or accepted geocoder result supports it. Avoid exposing a full address in console messages or unnecessary status text. Preserve map bounds for valid locations and keep the table usable when no marker can be produced.
+
+Add tests for missing, blank, malformed, ambiguous, and temporarily unserviceable location data. Assert every provider row remains visible, only valid locations create markers, and the summary count equals the unmapped rows. Verify recovery after a transient geocoder error without reimporting or editing the record. Run relevant tests and browser checks if available. Acceptance requires accurate table count, accurate mapped count, and a clear reason for each unmapped row. Do not claim production geocoder coverage if the API was stubbed. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: mixed dataset with valid, missing, and invalid location fields.</li><li>Negative: transient geocoder failure does not remove or mutate table records.</li><li>Accessibility: announce mapped and unmapped counts without flooding screen readers.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>All accepted records remain in the table regardless of map availability.</li><li>Only validated locations create markers.</li><li>Unmapped rows have a clear, non-sensitive explanation and can be retried when appropriate.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for skipped marker behavior; actual missing-location frequency is unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-09">Progress for issue 09</label>
+    <select id="progress-09" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-09" aria-label="Copy Issue 09 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-09" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-10" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 10 / 20</p><h2 class="issue-title">Resolve the configured location field against each dataset safely</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Select the correct location field and validate its value for each active dataset.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Testable assumption until the affected data keys are inspected.</dd>
+    <dt>Impacted area</dt><dd>Dataset configuration, location mapping, persistence.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The map reads one configured locationKey, defaulting to address. If the affected dataset uses another field or saved configuration refers to a key absent from the dataset, markers may be omitted or placed using the wrong value.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:77-81 sets locationKey to address by default. The configuration panel exposes a location field at :3284-3317, and updateMapMarkers reads only item[tableConfig.locationKey] at :4142-4145. Actual user dataset keys were not provided.</p></section>
+  <section><h3>Why this matters</h3><p>A valid table can coexist with an empty or geographically incorrect map when its configured location field is stale or semantically different.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend configuration engineer. Read repository instructions and inspect the current worktree. Trace createDefaultTableConfig, normalizeTableConfig, saved layout restoration, the Location field control, and updateMapMarkers. The current implementation reads a single tableConfig.locationKey and defaults it to address. The request provides no dataset schema, so verify actual record keys and intended location semantics before selecting a field.
+
+Make the selected field explicit and resilient per dataset. If the saved key is absent, do not silently geocode another arbitrary field. Show a clear configuration status and let the user choose a valid address or coordinate source. Ensure changing the selected field updates the map without altering provider records. Define what happens when one dataset is loaded after another with a different schema, and whether configuration is global or dataset-specific based on current persistence behavior. Preserve existing layout settings and provide a safe fallback to the current dataset&#39;s recognized address field only when its semantics are supported by evidence.
+
+Add tests for the default address field, a dataset with a custom address key, a stale saved key, empty values, and switching between datasets with different fields. Assert table rows are unchanged and markers use only the chosen field. Run applicable tests and report whether the real source field was confirmed. Acceptance requires no silent use of the wrong field and a clear no-location/configuration state. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: config normalization with valid, absent, stale, and empty location keys.</li><li>Integration: switch between datasets with different location fields.</li><li>Regression: selecting a location field changes markers but never changes table records.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Only the explicitly selected or evidence-backed field is used for geocoding.</li><li>A missing or stale field produces an understandable state.</li><li>Dataset switching cannot reuse a semantically wrong location field silently.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the single-field lookup; unknown which field the affected dataset requires.</p></section>
+  <div class="issue-actions">
+    <label for="progress-10">Progress for issue 10</label>
+    <select id="progress-10" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-10" aria-label="Copy Issue 10 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-10" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-11" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 11 / 20</p><h2 class="issue-title">Use explicit coordinates when the dataset provides them</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Support validated latitude and longitude pairs as a precise location source when present.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Testable assumption; no affected dataset schema was supplied.</dd>
+    <dt>Impacted area</dt><dd>Geospatial accuracy, data contract, map positioning.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The current map path sends a single location value to the address geocoder. If provider records include latitude and longitude fields, they are not used by the inspected implementation.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4110-4125 accepts an address string and geocodes it. public/provider-hub.js:4142-4150 reads locationKey and passes the result to geocodeAddress. No coordinate-pair branch appears in updateMapMarkers. The actual dataset fields are unknown.</p></section>
+  <section><h3>Why this matters</h3><p>Coordinates supplied by the source can be more precise than geocoding a partial or ambiguous address, but malformed or swapped coordinates can place markers far from the intended location.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior geospatial frontend engineer. Resolve the repository root and read instructions before editing. Inspect the supported dataset examples, dynamic field handling, location configuration, geocodeAddress, and updateMapMarkers. The local map implementation geocodes an address string; determine whether the affected data actually contains latitude and longitude fields before treating this as a required path.
+
+If repository or user-provided data establishes a coordinate pair, add a minimal validated coordinate path. Require both values, accept only finite numbers in valid latitude and longitude bounds, reject booleans and numeric strings unless the existing data contract explicitly permits conversion, and preserve source values. Prefer validated coordinates over geocoding only when the product contract makes that precedence clear. Otherwise expose a deliberate source selection. Never swap latitude and longitude silently. Fall back to the existing address geocoder only when both coordinates are absent and a valid address exists. Invalid partial pairs should produce an accessible row-level explanation rather than a marker at a default center.
+
+Add tests for valid boundaries, out-of-range values, swapped values, missing half-pairs, numeric strings, zero coordinates, and address fallback. Assert exact map positions from fixtures. Preserve table content and existing address-only data. Run focused tests and a browser smoke when supported. Acceptance requires known coordinates to appear at their exact validated positions and invalid pairs never to create a marker. State clearly if the live provider dataset was unavailable. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: coordinate bounds, zero values, non-finite numbers, partial pairs, and invalid types.</li><li>Integration: valid coordinates take the documented path; address-only rows retain geocoding.</li><li>Regression: no coordinate pair can be interpreted with latitude and longitude reversed.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Coordinate support is added only when the real schema or documented contract requires it.</li><li>Each coordinate is validated before marker creation.</li><li>Known fixture positions match the source pair exactly.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that the inspected local path is address-only; unknown whether the affected dataset contains coordinates.</p></section>
+  <div class="issue-actions">
+    <label for="progress-11">Progress for issue 11</label>
+    <select id="progress-11" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-11" aria-label="Copy Issue 11 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-11" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-12" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 12 / 20</p><h2 class="issue-title">Reject ambiguous geocoding results instead of choosing the first result blindly</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Check geocoder status, result quality, and location precision before creating a marker.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Possible; actual addresses and Google response details were not provided.</dd>
+    <dt>Impacted area</dt><dd>Map accuracy, third-party integration, user trust.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>geocodeAddress accepts results[0] whenever status is OK and does not inspect result type, partial-match indicators, or precision. Ambiguous input may produce a plausible but incorrect location.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4110-4125 calls geocoder.geocode and uses the first result&#39;s geometry. The real addresses and results behind the user&#39;s report are unavailable.</p></section>
+  <section><h3>Why this matters</h3><p>A marker at the wrong practice can be more misleading than no marker, especially when the UI presents it as a provider location.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior Google Maps integration engineer. Read repository instructions, inspect the worktree, and trace geocodeAddress and updateMapMarkers in public/provider-hub.js. The current resolver uses the first result when the status is OK. Do not assert that this caused the reported wrong locations until reproducing it with the actual address and response metadata.
+
+Define a conservative acceptance policy using documented response fields available in the installed Maps API version. Distinguish exact or rooftop results from partial, approximate, ambiguous, and failed results where supported. Do not invent a precision threshold. If policy is absent, choose the smallest safe fallback: do not create a marker for a result that cannot be verified as acceptable, and show an accessible unmapped reason. Preserve successful existing addresses and avoid putting full addresses in logs. Cache only results that passed validation and make the cache invalidation behavior clear if location data changes.
+
+Add deterministic tests using mocked geocoder responses for OK with precise result, OK with partial match, multiple candidates, zero results, quota or transient error, and malformed geometry. Include a browser test with a known fixture address if the environment supports Maps. Acceptance requires incorrect or uncertain results not to appear as confirmed locations, valid results to remain correct, and failures not to erase table rows. Report that mocks do not prove Google&#39;s live geocoding accuracy. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: mocked precise, partial, ambiguous, empty, malformed, and transient responses.</li><li>Integration: failed geocoding leaves the provider table intact and reports an unmapped location.</li><li>Manual: compare a small known fixture against an authoritative expected point, when available.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Only results that satisfy the documented quality policy create confirmed markers.</li><li>An uncertain result is visibly distinguished or omitted with an explanation.</li><li>The location decision is testable without a live API key.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the first-result behavior; whether the supplied dataset is ambiguous is unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-12">Progress for issue 12</label>
+    <select id="progress-12" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-12" aria-label="Copy Issue 12 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-12" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-13" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 13 / 20</p><h2 class="issue-title">Keep marker click and hover actions attached to the correct provider row</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Bind every marker to a stable record reference rather than a transient display position.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Testable assumption, especially during rapid data or view changes.</dd>
+    <dt>Impacted area</dt><dd>Interaction correctness, row identity, map-table linkage.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Marker callbacks calculate a source index using currentData.items.indexOf(item) after asynchronous geocoding completes. If the selected dataset or item array changes before that callback resolves, the marker may target a different row or no row.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4142-4157 awaits geocodeAddress and then calculates sourceIndex against the mutable currentData. The marker callback later passes that index to highlightRow at :4097-4106.</p></section>
+  <section><h3>Why this matters</h3><p>A user can click a marker and have the wrong provider highlighted even if its number and position look plausible.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend interaction engineer. Resolve the project root, read its instructions, and inspect the current worktree. Trace updateMapMarkers, asynchronous geocoding, currentData assignment, marker callbacks, highlightRow, and row data-idx. The current implementation derives sourceIndex after awaiting geocodeAddress by searching mutable currentData.items. Verify whether dataset switching or editing during the request can make that target stale.
+
+Capture a stable record identity and the relevant display ordinal before the asynchronous boundary. Associate each marker with that identity and resolve it against the currently rendered table when activated. If the record is no longer visible or the dataset has changed, do not highlight an unrelated row; either ignore the stale marker or explain that the view changed. Preserve click and hover behavior, current search, and smooth scrolling. Do not use a display index as a database identity or modify provider IDs.
+
+Add tests for marker click and hover after sort, search, edit, dataset switch, duplicate display values, and a delayed geocoder response. Assert the exact record highlighted. Run relevant provider tests and browser interaction checks when available. Acceptance requires every active marker to highlight only its own provider, while stale markers cannot target a different dataset row. Report any cases requiring a stable source identifier and whether the current data supplies one. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: click and hover markers after sorting and searching.</li><li>Race regression: switch datasets before a delayed geocoder response completes.</li><li>Edge: duplicate names and repeated addresses still resolve to the intended record.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Marker activation resolves to the same record used to create the marker.</li><li>A stale marker cannot highlight another dataset&#39;s row.</li><li>No provider field is repurposed as identity without schema evidence.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. The asynchronous lookup is visible; the reported incorrect row target has not been reproduced.</p></section>
+  <div class="issue-actions">
+    <label for="progress-13">Progress for issue 13</label>
+    <select id="progress-13" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-13" aria-label="Copy Issue 13 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-13" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-14" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 14 / 20</p><h2 class="issue-title">Prevent stale asynchronous geocoding results from restoring obsolete markers</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Use a generation token or cancellation strategy for each marker update.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely under fast search or dataset switching.</dd>
+    <dt>Impacted area</dt><dd>Async state, marker lifecycle, data correctness.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>updateMapMarkers clears current markers and then awaits all geocoding calls. A later update can clear and replace markers, after which an older request may resolve and add markers from the obsolete item list.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4134-4169 clears markers, starts asynchronous item geocoding, and adds each marker after await. There is no generation check or cancellation token in the inspected function. Search can invoke it on input at :3333-3345.</p></section>
+  <section><h3>Why this matters</h3><p>Rapidly changing datasets or filters can leave stale markers and labels on the map, contradicting the current table.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior async JavaScript engineer. Read AGENTS.md and inspect the worktree. Fix stale map updates in updateMapMarkers and geocodeAddress in public/provider-hub.js. The current function clears markers, awaits multiple geocoder calls, and adds results without verifying that its input is still current. Search input can trigger repeated calls. Reproduce the race with a deterministic deferred geocoder, not real network timing.
+
+Use a monotonic update generation, AbortController if the API path supports it, or another small existing-pattern guard. A newer dataset, search, sort, location-key change, or map destruction must invalidate older work. Before creating a marker and before fitting bounds, confirm the generation and dataset identity remain current. Clean up markers created by an invalidated generation. Do not let an older request clear markers created by a newer one. Keep valid cache entries and table data intact.
+
+Add regression tests that resolve requests out of order across two searches, two datasets, a location-key change, and map destruction. Assert that only the latest view&#39;s markers remain, labels match the current row sequence, and old bounds do not recenter the map. Include rejection and timeout behavior. Run focused tests, node --check, and browser interaction checks if available. Acceptance requires deterministic latest-update-wins behavior with no stale markers after rapid interaction. Report geocoder stubs and live behavior separately. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Regression: resolve two search generations in reverse order.</li><li>Integration: switch dataset and location field while older requests remain pending.</li><li>Negative: a rejected request does not prevent valid current results from rendering.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Only the newest valid view can add markers or fit map bounds.</li><li>Invalidated work cannot remove or replace newer markers.</li><li>Repeated search and dataset changes leave no obsolete marker.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that no generation guard exists in the inspected function; runtime frequency remains unmeasured.</p></section>
+  <div class="issue-actions">
+    <label for="progress-14">Progress for issue 14</label>
+    <select id="progress-14" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-14" aria-label="Copy Issue 14 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-14" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-15" data-issue-kind="core" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 15 / 20</p><h2 class="issue-title">Keep map empty and loading states distinct from an empty provider dataset</h2><p class="issue-kind">Core finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Core</dd>
+    <dt>DTM</dt><dd>Represent map availability, pending geocoding, and zero valid locations separately.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Likely when data is present but no address is geocodable.</dd>
+    <dt>Impacted area</dt><dd>Loading and empty states, user trust, error recovery.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The table can contain records while updateMapMarkers returns because the map is not ready, the input is empty, or every location fails. The inspected map flow does not expose distinct pending, no-location, and geocoder-error states.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:4134-4139 returns for unavailable map or no items. geocodeAddress resolves unsuccessful responses to null at :4123-4125. The page contains a general mapFallback at public/provider-hub.html:258-263, but per-dataset map state is not shown by this flow.</p></section>
+  <section><h3>Why this matters</h3><p>Users may interpret an empty map as missing data or assume every record was mapped when only some were.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend UX reliability engineer. Resolve the repository root, read applicable instructions, and preserve current work. Inspect public/provider-hub.html map and fallback markup, showMapFallback, geocodeAddress, updateMapMarkers, and the table item count. The current code has a general API-key fallback but no distinct per-dataset status for pending, zero valid locations, or partial geocoding results in the inspected marker flow.
+
+Add concise accessible map status that distinguishes: map unavailable because the API is not ready, geocoding in progress, no records in the dataset, records exist but none have usable locations, and partial results with an unmapped count. Keep the table visible and usable in every state. Do not call all failures &quot;no data.&quot; Announce state changes politely without noisy updates on each keystroke. Preserve the existing API key fallback and avoid embedding addresses or credentials in status copy.
+
+Add tests for each state, including table rows with no locations, all valid locations, mixed success, zero rows, missing API key, and transient geocoder failure. Check keyboard and screen-reader announcement behavior and mobile layout. Acceptance requires the map message to match the actual table and marker counts and to offer a useful recovery path when possible. Do not claim external API behavior from mocks. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: zero records, all valid, all invalid, and mixed-location datasets.</li><li>Failure: missing API key and transient geocoder failure retain table data.</li><li>Accessibility: state changes are announced once and do not overwhelm live regions.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>The map never labels an unmapped dataset as empty when table rows exist.</li><li>Mapped and unmapped counts match the rows.</li><li>The table remains usable when Google Maps is unavailable.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. The general fallback is present; the distinct record-level map states are not visible in the inspected flow.</p></section>
+  <div class="issue-actions">
+    <label for="progress-15">Progress for issue 15</label>
+    <select id="progress-15" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-15" aria-label="Copy Issue 15 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-15" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-16" data-issue-kind="additional" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 16 / 20</p><h2 class="issue-title">Prevent repeated search input from overloading geocoding</h2><p class="issue-kind">Additional finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Additional</dd>
+    <dt>DTM</dt><dd>Reuse cached valid locations and bound requests during filtering.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Possible for larger datasets or slow typing.</dd>
+    <dt>Impacted area</dt><dd>Performance, third-party quota, responsive interaction.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Each search input can start an asynchronous marker update over the visible rows. Cache lookup is by exact address and only stores results after the geocoder response, so concurrent duplicate requests may not share an in-flight operation.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:3333-3345 calls updateMapMarkers on each input. public/provider-hub.js:4110-4125 caches resolved addresses only. updateMapMarkers launches Promise.all across all passed items at :4140-4160.</p></section>
+  <section><h3>Why this matters</h3><p>Large datasets or rapid typing may generate repeated network calls, slow the UI, or exhaust service quotas.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior frontend performance engineer. Inspect repository instructions, the worktree, the search input handler, geocodeCache, geocodeAddress, and updateMapMarkers. Confirm request volume with a deterministic mock before changing code. Current search input can trigger marker updates on each event, and the address cache is populated only after a response resolves.
+
+Reduce duplicate and obsolete geocoding work with the smallest existing-pattern change. Reuse in-flight requests for identical normalized addresses if normalization is safe; otherwise keep exact-key behavior and avoid collisions. Bound concurrency if the real supported record cap makes unbounded Promise.all unsafe. Debounce only if it does not make table search feel delayed; table filtering should remain immediate even if map geocoding is scheduled. Do not add a dependency, invent arbitrary quotas, or hide API errors. Keep generation invalidation from the stale-marker fix compatible with caching.
+
+Add tests that count mock geocoder calls for rapid search, repeated addresses, cache hit, cache failure, and a large but supported fixture. Measure responsiveness with a stated fixture size rather than claiming generalized performance. Run focused tests and browser checks if available. Acceptance requires duplicate work to be bounded, the latest view to render, and table search to respond immediately. Report measured request counts and limitations. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Unit: repeated address calls share or reuse an eligible result.</li><li>Integration: rapid input does not launch unbounded obsolete work.</li><li>Performance: measure a documented supported fixture size and report request counts.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Table filtering remains responsive while map work is bounded.</li><li>Repeated identical inputs do not create avoidable duplicate geocoder calls.</li><li>Failures and stale responses remain visible or safely discarded.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. The request pattern is visible; actual dataset size and quota impact are unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-16">Progress for issue 16</label>
+    <select id="progress-16" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-16" aria-label="Copy Issue 16 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-16" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-17" data-issue-kind="additional" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 17 / 20</p><h2 class="issue-title">Separate browser-blocked requests from first-party Provider Hub failures</h2><p class="issue-kind">Additional finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Additional</dd>
+    <dt>DTM</dt><dd>Identify the blocked request URL, initiator, and impact before changing code.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Possible; blocked URLs are not fully identified in the supplied text.</dd>
+    <dt>Impacted area</dt><dd>Diagnostics, browser compatibility, network behavior.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The supplied console reports ERR_BLOCKED_BY_CLIENT for a hashed resource and Google&#39;s gen_204 endpoint. Those messages may come from a browser extension or privacy filter and do not by themselves prove table or map data loss.</p></section>
+  <section><h3>Evidence or rationale</h3><p>User-provided console text contains two ERR_BLOCKED_BY_CLIENT messages. One resource is shown only by a hash-like name and the other is maps.googleapis.com/maps/api/mapsjs/gen_204. The actual request initiator and network panel details were not supplied.</p></section>
+  <section><h3>Why this matters</h3><p>Changing product code to bypass a browser blocker can create privacy or security problems while leaving the true display exception untouched.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior browser networking diagnostics engineer. Read repository instructions and inspect the current worktree. Investigate the two user-reported ERR_BLOCKED_BY_CLIENT messages by capturing the exact request URL, initiator, resource type, timing, and whether table or marker rendering depends on that request. Do not copy the Maps key from the supplied console URL into logs, fixtures, or output. Do not assume the hash-like resource is first-party, and do not treat Google&#39;s gen_204 telemetry request as a functional dependency without evidence.
+
+If the blocked request is a nonessential beacon or browser-extension block, leave it blocked and document that it is unrelated to dataset rendering. If a required first-party script or data response is blocked, trace its source and provide a same-origin or existing supported fallback without bypassing user privacy controls. Do not add retry loops, alternate tracking endpoints, or code that defeats ad blockers. Correlate this request with the displayData exception separately.
+
+Add a controlled browser test that blocks the identified request and verifies whether core table and map behavior changes. Run in a clean browser profile only if available, and report browser extension state as unknown unless inspected. Acceptance requires an evidence-based classification for each blocked request and no code change to nonessential telemetry. Report exact request identity without exposing credentials. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Manual/browser: record URL, initiator, type, and user-visible impact for each blocked request.</li><li>Regression: block the confirmed nonessential request and verify table content remains correct.</li><li>Negative: required first-party asset failure produces a clear fallback rather than a false success.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Each blocked request is classified from network evidence.</li><li>No code attempts to bypass privacy software or restore nonessential tracking.</li><li>First-party asset failures have a truthful recovery message.</li></ul></section>
+  <section><h3>Confidence</h3><p>High that the browser reports blocked requests; low about the identity and product impact of the hashed resource.</p></section>
+  <div class="issue-actions">
+    <label for="progress-17">Progress for issue 17</label>
+    <select id="progress-17" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-17" aria-label="Copy Issue 18 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-17" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-18" data-issue-kind="additional" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 18 / 20</p><h2 class="issue-title">Make marker numbers and map interaction accessible alongside the table</h2><p class="issue-kind">Additional finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Additional</dd>
+    <dt>DTM</dt><dd>Provide an accessible non-map path to identify and navigate provider locations.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Likely accessibility gap for users who cannot use a visual map.</dd>
+    <dt>Impacted area</dt><dd>Accessibility, map-table navigation, keyboard access.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>Google map markers expose visual labels and click/hover listeners. The directory table is present, but the inspected flow does not provide a clear accessible mapping summary linking each numbered marker to its provider row and location status.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.html:258-263 defines the map container and fallback. public/provider-hub.js:4148-4157 creates numbered Google markers with click and mouseover listeners. The number-to-record contract is not exposed as a textual list in this flow.</p></section>
+  <section><h3>Why this matters</h3><p>Color, position, and visual marker numbers are insufficient for screen-reader and keyboard users, and the table cannot communicate which records have valid map positions.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior accessibility engineer for map-based directories. Resolve the project root and read instructions. Inspect the map markup, Google marker creation, table rows, map fallback, and all applicable CSS focus styles. The current markers have visual numbers and click/mouseover listeners. Determine with keyboard and screen-reader testing whether each marker&#39;s provider identity and map status are available without visual map interaction.
+
+Provide a semantic, keyboard-operable alternative that links each mapped provider to its table row and reports unmapped records. Reuse the existing table where possible rather than duplicating all provider details. Ensure each item has an accessible name derived from the safe display label and the canonical row number. Keep focus visible, preserve search and sort, and synchronize the alternative list with the current view. Do not claim WCAG conformance without evidence and do not make a map container pretend to be an accessible table.
+
+Add keyboard-only and screen-reader-oriented tests for navigating the list, activating an item, reaching the corresponding row, and understanding missing-location states. Check responsive layout, visible focus, zoom, and touch targets. Acceptance requires users who cannot perceive or operate the map to identify every visible provider and reach its row. Report manual assistive-technology coverage precisely. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Accessibility: keyboard-only navigation and visible focus across map alternatives and table.</li><li>Integration: activating a location entry reaches the matching row after sorting and search.</li><li>Manual: screen-reader announcement of mapped and unmapped state, if assistive technology is available.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Every mapped provider has a textual, keyboard-operable counterpart.</li><li>Marker number and provider name are available without relying on visual position.</li><li>The accessible alternative reflects the current search and sort state.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. Source shows visual markers and a table; full assistive-technology behavior was not exercised.</p></section>
+  <div class="issue-actions">
+    <label for="progress-18">Progress for issue 18</label>
+    <select id="progress-18" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-18" aria-label="Copy Issue 20 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-18" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-19" data-issue-kind="additional" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 19 / 20</p><h2 class="issue-title">Keep table counts and map counts truthful when some records are unmappable</h2><p class="issue-kind">Additional finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Additional</dd>
+    <dt>DTM</dt><dd>Report total rows, valid markers, and unmapped rows as separate counts.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p2">P2</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="3">Severity 3 (Moderate)</span></dd>
+    <dt>Likelihood</dt><dd>Likely for mixed-quality provider data.</dd>
+    <dt>Impacted area</dt><dd>Data completeness, summary counts, error communication.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The table item count is based on the input array, while marker creation can skip records with missing or unsuccessful geocoding. Without distinct counts, a user may interpret fewer markers as records missing from the dataset.</p></section>
+  <section><h3>Evidence or rationale</h3><p>public/provider-hub.js:1009 and :1013-1014 set the table item count and render every item. public/provider-hub.js:4142-4147 skips items with no usable address or geocode result.</p></section>
+  <section><h3>Why this matters</h3><p>Clear totals help users distinguish a data import problem from a location quality problem and validate whether a dataset loaded completely.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior data quality and UX engineer. Inspect itemCount, renderRows, geocodeAddress, updateMapMarkers, and existing accessible status elements. The source counts table items independently from marker success, and geocoding can skip items. Preserve the current dataset count as the number of records, not markers.
+
+Add a clear summary for total records, mapped locations, and unmapped locations, with definitions that remain correct under search and sort. Avoid implying a failed geocode means the provider record is invalid. Keep counts tied to the same current visible view when filtering. Use a polite status announcement after completed map updates, not for every individual geocoder callback. Do not expose full addresses or sensitive values.
+
+Test all-mapped, mixed, none-mapped, no-record, no-search-match, and transient-error cases. Assert total equals mapped plus unmapped for the current view, while table row count remains unchanged. Verify screen-reader announcements and mobile wrapping. Acceptance requires counts that match visible rows and marker state, with no record dropped because of geocoding. Report which outcomes were mocked. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Integration: all valid, mixed, none valid, no records, and no search matches.</li><li>Regression: geocoder failure changes mapped counts but never table record count.</li><li>Accessibility: count updates are announced concisely and accurately.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>Counts distinguish dataset records from successfully mapped locations.</li><li>Mapped plus unmapped equals visible records for the current view.</li><li>Search and clearing search update counts consistently.</li></ul></section>
+  <section><h3>Confidence</h3><p>High for the separate row and marker paths; actual data quality distribution is unknown.</p></section>
+  <div class="issue-actions">
+    <label for="progress-19">Progress for issue 19</label>
+    <select id="progress-19" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-19" aria-label="Copy Issue 22 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-19" role="status" aria-live="polite"></span>
+  </div>
+</article>
+
+<article class="issue" id="issue-20" data-issue-kind="additional" data-progress="incomplete">
+  <header class="issue-header"><p class="issue-number">Issue 20 / 20</p><h2 class="issue-title">Use a verified test fixture and an end-to-end table-map parity regression suite</h2><p class="issue-kind">Additional finding</p></header>
+  <dl class="issue-fields">
+    <dt>Kind</dt><dd>Additional</dd>
+    <dt>DTM</dt><dd>Create deterministic fixtures that prove content, numbering, locations, and failure behavior together.</dd>
+    <dt>Priority</dt><dd><span class="priority-label" data-priority="p1">P1</span></dd>
+    <dt>Severity</dt><dd><span class="severity-label" data-severity="2">Severity 2 (High)</span></dd>
+    <dt>Likelihood</dt><dd>Likely coverage gap; existing suites require targeted inspection.</dd>
+    <dt>Impacted area</dt><dd>Regression coverage, release confidence, integration correctness.</dd>
+  </dl>
+  <section><h3>Failure mode</h3><p>The user reports a visible table/map defect, but the request supplies no dataset or expected rows. Candidate repository suites are versioned provider tests and advanced-controls tests; the inspected search did not identify a direct test for current map marker correspondence.</p></section>
+  <section><h3>Evidence or rationale</h3><p>scripts contains provider-hub-v12.test.mjs, provider-hub-v13.test.mjs, provider-hub-v14.test.mjs, and provider-hub-advanced-controls.test.mjs. A targeted search for map-marker and geocoding assertions did not surface a current dedicated parity test. The actual package test script and suite coverage must be verified before claiming a gap.</p></section>
+  <section><h3>Why this matters</h3><p>Without a fixture with ground-truth row numbers and locations, a future change can pass syntax checks while still mapping the wrong provider or marker.</p></section>
+  <section><h3>Implementation prompt</h3><pre class="implementation-prompt" data-copy-target><code>You are a senior test automation engineer. Resolve the repository root, read instructions and package.json, inspect the current provider-hub test suites, and preserve existing work. Verify whether current tests exercise the exact unversioned runtime bundle and assert data rows, marker labels, positions, sort/filter state, and marker-to-row identity. A targeted source search found versioned provider tests but did not establish that no relevant tests exist, so inspect before adding a duplicate suite.
+
+Add a small deterministic fixture with at least four records, mixed locations, one custom scalar field, one missing location, and distinct known coordinates or unambiguous mocked geocoder responses. The fixture must define expected row count, values, visible numbering, marker labels, exact positions, and marker targets. Cover import, IndexedDB reload, dataset switch, sorting, search, clearing search, async response reordering, invalid schema, and geocoder failure. Keep tests isolated from a real Google key and external network. Reuse the repository&#39;s test conventions and avoid broad snapshots or assertions that only check no exception.
+
+Run the narrow test first, then directly affected suites, static checks, typecheck, build, and the package test command when available. Report exact commands and outcomes, infrastructure failures, and any production evidence not covered locally. Acceptance requires each request requirement to map to an assertion that would fail under the current defect. Do not change test expectations merely to get a pass. Do not use em-dashes.
+
+Final report: state the outcome and whether the issue is complete, the verified root cause or design basis, files changed, tests added, a requirement-to-test matrix, exact commands and outcomes, checks not run and why, remaining risks, and testable assumptions. Never report an unexecuted check as passing. Do not use em-dashes in generated content.</code></pre></section>
+  <section><h3>Tests (where applicable)</h3><ol><li>Automated regression: valid and invalid data, import/reload, row ordering, marker position and identity.</li><li>End-to-end: sort and search while verifying current visible table and map state.</li><li>Baseline: run existing provider tests and report which runtime bundle each suite covers.</li></ol></section>
+  <section><h3>Acceptance criteria</h3><ul><li>A regression test fails when the current mismatch is reproduced and passes after the fix.</li><li>Every table-map requirement has an observable assertion.</li><li>Tests use no real API key and make no uncontrolled external network request.</li></ul></section>
+  <section><h3>Confidence</h3><p>Medium. Candidate tests exist; dedicated map parity coverage was not found in the targeted search and requires full test inspection.</p></section>
+  <div class="issue-actions">
+    <label for="progress-20">Progress for issue 20</label>
+    <select id="progress-20" data-issue-progress-control disabled>
+      <option value="incomplete" selected>Incomplete</option>
+      <option value="in-progress">In progress</option>
+      <option value="complete">Complete</option>
+    </select>
+    <span class="issue-progress-state" data-issue-progress-state data-progress="incomplete">Incomplete</span>
+    <button type="button" class="json-copy-control" data-json-issue="issue-20" aria-label="Copy Issue 23 as JSON" disabled>JSON</button>
+    <span class="json-copy-status" data-json-status="issue-20" role="status" aria-live="polite"></span>
+  </div>
+</article>
+  </section>
+  <section class="scope-notes">
+    <h2>Evidence boundaries</h2>
+    <p>The current source gives strong evidence for data flow and marker synchronization paths, but it does not prove which failure occurred in the user's browser. The coding agent must inspect the actual loaded HTML and scripts, use a fixture with known expected data, and distinguish local tests from live Maps, deployed assets, and production dataset evidence. Do not use the fictional demo records as validation of real-world locations.</p>
+  </section>
+</main>
+<footer class="report-footer">
+  <p>Reviewed repository: mytech-today-now/providers-with-style, branch main, revision b31fa5dd06edea21d204f57290d50565a0d03027.</p>
+  <p>Generated 2026-10-20 00:03:52 America/Chicago. Output: ai-prompts/pre-mortem_2026-10-20_00-03-52.html.</p>
+  <p>Report author: Kyle Rode, myTech.Today prompt-refined workflow. Scope: post-processed prompts for provider table, map numbering, and location correctness.</p>
+</footer>
+<script>
+(function () {
+  "use strict";
+  const issues = Array.from(document.querySelectorAll("article.issue"));
+  const reportStatus = document.getElementById("report-json-status");
+  const reportButton = document.querySelector("[data-json-report]");
+
+  function textOf(element) {
+    return element ? element.innerText.trim() : "";
+  }
+
+  function issueObject(article) {
+    const fields = {};
+    const pairs = Array.from(article.querySelectorAll(".issue-fields dt"));
+    pairs.forEach(function (term) {
+      const value = term.nextElementSibling;
+      fields[term.innerText.trim()] = textOf(value);
+    });
+    const sections = {};
+    Array.from(article.querySelectorAll(":scope > section")).forEach(function (section) {
+      const heading = section.querySelector("h3");
+      if (!heading) return;
+      sections[heading.innerText.trim()] = Array.from(section.children)
+        .filter(function (child) { return child !== heading; })
+        .map(function (child) { return child.innerText.trim(); })
+        .join("\n");
+    });
+    return {
+      id: article.id,
+      number: textOf(article.querySelector(".issue-number")),
+      title: textOf(article.querySelector(".issue-title")),
+      kind: article.dataset.issueKind,
+      progress: article.dataset.progress || "incomplete",
+      fields: fields,
+      sections: sections
+    };
+  }
+
+  function copyText(value, statusElement) {
+    function fallback() {
+      const area = document.createElement("textarea");
+      area.value = value;
+      area.setAttribute("readonly", "");
+      area.setAttribute("aria-hidden", "true");
+      area.style.position = "fixed";
+      area.style.left = "-10000px";
+      document.body.appendChild(area);
+      area.select();
+      let copied = false;
+      try { copied = document.execCommand("copy"); } catch (_) {}
+      area.remove();
+      return copied;
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(value).then(function () {
+        statusElement.textContent = "JSON copied to clipboard.";
+      }).catch(function () {
+        statusElement.textContent = fallback()
+          ? "JSON copied to clipboard."
+          : "Clipboard access failed. Select the visible report text and copy it manually.";
+      });
+      return;
+    }
+    statusElement.textContent = fallback()
+      ? "JSON copied to clipboard."
+      : "Clipboard access is unavailable. Select the visible report text and copy it manually.";
+  }
+
+  issues.forEach(function (article) {
+    const button = article.querySelector("[data-json-issue]");
+    const status = article.querySelector("[data-json-status]");
+    if (!button || !status) return;
+    button.addEventListener("click", function () {
+      copyText(JSON.stringify(issueObject(article), null, 2), status);
+    });
+    button.disabled = false;
+  });
+
+  if (reportButton && reportStatus) {
+    reportButton.addEventListener("click", function () {
+      const report = {
+        title: document.querySelector(".report-title").innerText.trim(),
+        repository: "mytech-today-now/providers-with-style",
+        branch: "main",
+        revision: "b31fa5dd06edea21d204f57290d50565a0d03027",
+        generatedAt: "2026-10-20 00:03:52 America/Chicago",
+        sourceTemplate: "https://raw.githubusercontent.com/mytech-today-now/prompt-refined/refs/heads/main/ai-feeder-prompt.md",
+        issues: issues.map(issueObject)
+      };
+      copyText(JSON.stringify(report, null, 2), reportStatus);
+    });
+    reportButton.disabled = false;
+  }
+})();
+</script>
+</body>
+</html>

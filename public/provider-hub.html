@@ -270,17 +270,12 @@
     <!-- Table area -->
     <div class="table-area" id="tableArea">
       <div class="toolbar">
+        <div class="table-crud" id="tableCrud">
+          <button class="btn btn-primary" id="btnAddRow" type="button">＋ Add row</button>
+        </div>
         <input type="search" id="search" placeholder="Search any word..." aria-label="Search table" disabled>
         <button class="btn" id="toggleSettings" disabled>Columns</button>
         <button class="btn" id="resetLayout" disabled>Reset Layout</button>
-      </div>
-
-      <div class="controls-bar">
-        <span class="note">Drag headers · Edge resize · Layout saved · Click copy icons to clipboard</span>
-      </div>
-
-      <div class="crud-bar table-crud" id="tableCrud">
-        <button class="btn btn-primary" id="btnAddRow" type="button">＋ Add row</button>
       </div>
 
       <div class="settings-panel" id="settingsPanel">
@@ -296,9 +291,6 @@
           </tbody>
         </table>
       </div>
-      <p class="note" style="margin:2px 0 0;" id="footerNote">
-        Layout persists via localStorage + IndexedDB. Datasets stored in IndexedDB.
-      </p>
     </div>
   </div>
 </div>

@@ -1200,8 +1200,6 @@
       document.getElementById('pageTitle').textContent = data.prettyName || data.fileName || 'Provider Directory';
       document.getElementById('shortDesc').textContent = data.shortDescription || '';
       renderLongDescription(document.getElementById('longDesc'), data);
-      document.getElementById('footerNote').textContent = data.footerNote ||
-        'Layout settings persist via localStorage + IndexedDB. Datasets stored in IndexedDB.';
 
       buildColumnToggles();
       buildHeader(tableConfig.order);
